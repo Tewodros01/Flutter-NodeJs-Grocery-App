@@ -21,7 +21,7 @@ const categorySchema = new Schema<ICategoryDocument>(
       transform: function (doc, ret) {
         ret.category_id = ret._id.toString();
         delete ret._id;
-        delete ret._v;
+        delete ret.__v;
       },
     },
   }

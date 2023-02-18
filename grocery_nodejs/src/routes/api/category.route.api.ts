@@ -2,7 +2,7 @@ import { Router } from "express";
 import uploads from "../../middleware/category.upload";
 import {
   createCategory,
-  getCategory,
+  getCategories,
   getCategoryById,
   updateCategoryById,
   deleteCategoryById,
@@ -10,7 +10,7 @@ import {
 
 const category_router = Router();
 
-category_router.get("/", getCategory);
+category_router.get("/", getCategories);
 category_router.post("/", uploads.single("image"), createCategory);
 category_router.get("/:id", getCategoryById);
 category_router.put("/:id", updateCategoryById);

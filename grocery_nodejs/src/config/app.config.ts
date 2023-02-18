@@ -3,6 +3,7 @@ const MONGO_DB_CONFIG = {
   PAGE_SIZE: 10,
   BCRYPT_PASSWORD: "man who u are",
   SALT_ROUND: 10,
+  TOKEN_KEY: "10",
 };
 
 export default MONGO_DB_CONFIG;

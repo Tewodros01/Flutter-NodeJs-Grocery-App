@@ -23,12 +23,9 @@ export async function createProduct(
       stack_status: req.body.stack_status,
     };
     const newProduct = await productService.createProduct(product);
-    res.json({
-      message: "Product Successfully saved",
-      producy: newProduct,
-    });
+    res.json({ message: "success", data: newProduct });
   } catch (err) {
-    res.json(400).json(`Product is not save ${err}`);
+    res.status(400).json({ message: "error", error: `${err}` });
   }
 }
 export async function getAllProducts(
@@ -43,9 +40,9 @@ export async function getAllProducts(
       category_id: req.query.category_id?.toString(),
       sort: req.query.sort?.toString(),
     });
-    res.json(product);
+    res.json({ message: "success", data: product });
   } catch (err) {
-    throw new Error(`${err}`);
+    res.status(400).json({ message: "error", error: `${err}` });
   }
 }
 
@@ -61,19 +58,23 @@ export async function updateProductById(
   req: Request,
   res: Response
 ): Promise<void> {
-  const { id } = req.params;
-  const product: IProduct = {
-    product_name: req.body.product_name,
-    product_short_description: req.body.product_short_description,
-    product_description: req.body.product_description,
-    product_price: req.body.product_price,
-    product_sale_price: req.body.product_sale_price,
-    product_SKU: req.body.product_SKU,
-    product_type: req.body.product_type,
-    stack_status: req.body.stack_status,
-  };
-  const updatedCategory = await productService.updateProduct(id, product);
-  res.json({ message: "Successfully updated", category: updatedCategory });
+  try {
+    const { id } = req.params;
+    const product: IProduct = {
+      product_name: req.body.product_name,
+      product_short_description: req.body.product_short_description,
+      product_description: req.body.product_description,
+      product_price: req.body.product_price,
+      product_sale_price: req.body.product_sale_price,
+      product_SKU: req.body.product_SKU,
+      product_type: req.body.product_type,
+      stack_status: req.body.stack_status,
+    };
+    const updatedCategory = await productService.updateProduct(id, product);
+    res.json({ message: "success", data: updatedCategory });
+  } catch (err) {
+    res.status(400).json({ message: "error", error: `${err}` });
+  }
 }
 
 export async function deleteProductById(
@@ -85,8 +86,8 @@ export async function deleteProductById(
     if (product && product.product_image_path) {
       await fs.unlink(path.resolve(product.product_image_path));
     }
-    res.json({ message: "Product deleted", product });
-  } catch (error) {
-    res.status(404).json({ error });
+    res.json({ message: "success", data: product });
+  } catch (err) {
+    res.status(400).json({ message: "error", error: `${err}` });
   }
 }

@@ -21,7 +21,7 @@ const userSchema = new Schema<IUserDocument>(
       transform: function (dec, ret) {
         ret.user_id = ret._id.toString();
         delete ret._id;
-        delete ret._v;
+        delete ret.__v;
       },
     },
   }

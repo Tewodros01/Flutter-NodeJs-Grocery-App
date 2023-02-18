@@ -48,7 +48,7 @@ class ApiService {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
 
-      return productsFromJson(data);
+      return productsFromJson(data["data"]);
     } else {
       return null;
     }
