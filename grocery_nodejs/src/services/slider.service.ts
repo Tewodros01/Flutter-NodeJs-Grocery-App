@@ -14,8 +14,8 @@ export async function createSlider(
     const createdSlider = new SliderModel(newSlider);
     await createdSlider.save();
     return createdSlider as ISliderDocument;
-  } catch (error: any) {
-    throw new Error(`Error creating slider  ${error.message}`);
+  } catch (err) {
+    throw new Error(`Error creating slider  ${err}`);
   }
 }
 
@@ -51,8 +51,8 @@ export async function getSliderById(id: string): Promise<ISliderDocument> {
     const slider = await SliderModel.findById(id).lean();
     if (!slider) throw "not Found slider with" + id;
     else return slider as ISliderDocument;
-  } catch (error: any) {
-    throw new Error(`Error retriving slider with id ${id}: ${error.message}`);
+  } catch (err) {
+    throw new Error(`Error retriving slider with id ${id}: ${err}`);
   }
 }
 
@@ -82,8 +82,8 @@ export async function updateSlider(
     ).lean();
     if (!updateSlider) throw "Not found slider with id " + id;
     else return updateSlider as unknown as ISliderDocument;
-  } catch (error: any) {
-    throw new Error(`Error updating slider with id ${id}: ${error.message}`);
+  } catch (err) {
+    throw new Error(`Error updating slider with id ${id}: ${err}`);
   }
 }
 
