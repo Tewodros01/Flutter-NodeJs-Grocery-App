@@ -56,7 +56,7 @@ export async function register(newUser: IUser): Promise<IUserDocument> {
 export async function getAllUser(params: {
   pageSize?: string;
   page?: string;
-}): Promise<IUserDocument[]> {
+}) {
   try {
     const perPage =
       Math.abs(parseInt(params.pageSize ?? "")) || MONGO_DB_CONFIG.PAGE_SIZE;
@@ -64,7 +64,7 @@ export async function getAllUser(params: {
     const users = await UserModel.find()
       .limit(perPage)
       .skip(perPage * page);
-    return users as IUserDocument[];
+    return users ;
   } catch (err) {
     throw new Error(`Could not get users ${err}`);
   }
