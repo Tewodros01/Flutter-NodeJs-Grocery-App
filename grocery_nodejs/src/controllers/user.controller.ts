@@ -4,7 +4,7 @@ import { IUser } from "../models/user.model";
 
 export async function registore(req: Request, res: Response) {
   const user: IUser = {
-    fullName: req.body.fullName,
+    fullName: req.body.full_name,
     email: req.body.email,
     password: req.body.password,
   };
