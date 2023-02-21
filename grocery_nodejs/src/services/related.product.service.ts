@@ -1,4 +1,3 @@
-import { Response } from "express";
 import { ProductModel } from "../models/product.model";
 import {
   IRelatedProduct,
@@ -6,7 +5,7 @@ import {
   RelatedProductModel,
 } from "../models/related-product.model";
 
-export async function add(
+export async function addRelatedproduct(
   relatedProduct: IRelatedProduct
 ): Promise<IRelatedProductDocument> {
   try {
@@ -20,7 +19,7 @@ export async function add(
     const newRelatedProduct = new RelatedProductModel(relatedProduct);
     await newRelatedProduct.save();
 
-    const product = await ProductModel.findByIdAndUpdate(
+    await ProductModel.findByIdAndUpdate(
       relatedProduct.product,
       {
         $addToSet: {

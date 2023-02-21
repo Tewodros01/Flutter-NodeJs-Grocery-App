@@ -96,7 +96,7 @@ export async function deleteSlider(id: string): Promise<ISliderDocument> {
     }
     if (!slider) throw "Not Found Slider with id " + id;
     else return slider as ISliderDocument;
-  } catch (error: any) {
-    throw new Error(`Error deleting slider with id ${id}: ${error.message}`);
+  } catch (err) {
+    throw new Error(`Error deleting slider with id ${id}: ${err}`);
   }
 }
