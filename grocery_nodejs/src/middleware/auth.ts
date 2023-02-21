@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import MONGO_DB_CONFIG from "../config/app.config";
-import { IUser } from "../models/user_model";
+import { IUser } from "../models/user.model";
 
 const TOKEN_KEY = MONGO_DB_CONFIG.TOKEN_KEY;
 

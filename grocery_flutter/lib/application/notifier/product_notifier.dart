@@ -7,9 +7,10 @@ import 'package:groccery_app/models/pagination.dart';
 class ProductsNotfier extends StateNotifier<ProductsState> {
   final ApiService _apiService;
   final ProductFilterModel _filterModel;
-
+  //ProductsNotifier that extends the ProductsState
   ProductsNotfier(this._apiService, this._filterModel)
       : super(const ProductsState());
+
   int _page = 1;
 
   Future<void> getProduct() async {

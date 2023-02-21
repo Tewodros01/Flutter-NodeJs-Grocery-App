@@ -8,6 +8,7 @@ interface IUser {
 
 interface IUserDocument extends Document, IUser {
   user_id: string;
+  token: string;
 }
 
 const userSchema = new Schema<IUserDocument>(
@@ -15,6 +16,7 @@ const userSchema = new Schema<IUserDocument>(
     full_name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
+    token: { type: String, required: true },
   },
   {
     toJSON: {
@@ -26,9 +28,9 @@ const userSchema = new Schema<IUserDocument>(
     },
   }
 );
-const User: Model<IUserDocument> = mongoose.model<IUserDocument>(
+const user: Model<IUserDocument> = mongoose.model<IUserDocument>(
   "User",
   userSchema
 );
 
-export { IUser, IUserDocument, User };
+export { IUser, IUserDocument, user };

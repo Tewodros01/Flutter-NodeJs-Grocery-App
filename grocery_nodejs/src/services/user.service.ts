@@ -1,4 +1,4 @@
-import { IUser, IUserDocument, User } from "../models/user_model";
+import { IUser, IUserDocument, user } from "../models/user.model";
 import bcrypt from "bcrypt";
 import MONGO_DB_CONFIG from "../config/app.config";
 import * as auth from "../middleware/auth";
@@ -6,18 +6,18 @@ import * as auth from "../middleware/auth";
 export async function login(
   email: string,
   password: string
-): Promise<string | null> {
+): Promise<string | null | IUserDocument> {
   try {
-    const user = await User.findOne({ email });
+    const logInUser = await user.findOne({ email });
     if (
-      user &&
+      logInUser &&
       (await bcrypt.compare(
         password + MONGO_DB_CONFIG.BCRYPT_PASSWORD,
-        user.password
+        logInUser.password
       ))
     ) {
-      const token = auth.generateAccessToken(user.toJSON());
-      return token;
+      const token = auth.generateAccessToken(logInUser.toJSON());
+      return logInUser;
     }
     return null;
   } catch (err) {
@@ -25,28 +25,29 @@ export async function login(
   }
 }
 
-export async function register(user: IUser): Promise<string> {
+export async function register(newUser: IUser): Promise<IUserDocument> {
   try {
-    if (!user.email) {
+    if (!newUser.email) {
       throw new Error("Email is required");
     }
 
-    const existingUser = await User.findOne({ email: user.email });
+    const existingUser = await user.findOne({ email: newUser.email });
     if (existingUser) {
       throw new Error("Email already registered");
     }
 
     const hash = await bcrypt.hash(
-      user.password + MONGO_DB_CONFIG.BCRYPT_PASSWORD,
+      newUser.password + MONGO_DB_CONFIG.BCRYPT_PASSWORD,
       MONGO_DB_CONFIG.SALT_ROUND
     );
-    user.password = hash;
+    newUser.password = hash;
 
-    const newUser = new User(user);
-    await newUser.save();
-    const token = auth.generateAccessToken(newUser.toJSON());
+    const registorUser = new user(newUser);
+    const token = auth.generateAccessToken(registorUser.toJSON());
+    registorUser.token = token; // Add token value to user object
+    await registorUser.save(); // Save user object to the database
 
-    return token;
+    return registorUser;
   } catch (err) {
     throw new Error(`Could not create user ${err}`);
   }
@@ -60,11 +61,22 @@ export async function getAllUser(params: {
     const perPage =
       Math.abs(parseInt(params.pageSize ?? "")) || MONGO_DB_CONFIG.PAGE_SIZE;
     const page = (Math.abs(parseInt(params.page ?? "")) || 1) - 1;
-    const users = await User.find()
+    const users = await user
+      .find()
       .limit(perPage)
       .skip(perPage * page);
     return users as IUserDocument[];
   } catch (err) {
     throw new Error(`Could not get users ${err}`);
+  }
+}
+
+export async function deletUser(id: String): Promise<IUserDocument> {
+  try {
+    console.log(id);
+    const deletedUser = await user.findByIdAndDelete(id).lean();
+    return deletedUser as IUserDocument;
+  } catch (err) {
+    throw new Error(`Could not dlete ${err}`);
   }
 }

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import * as userService from "../services/user.service";
-import { IUser } from "../models/user_model";
+import { IUser } from "../models/user.model";
 
 export async function registore(req: Request, res: Response) {
   const user: IUser = {
@@ -36,6 +36,16 @@ export async function getAllUser(req: Request, res: Response): Promise<void> {
       page: req.query.page?.toString(),
     });
     res.json({ message: "success", data: allUser });
+  } catch (err) {
+    res.status(400).json({ message: "error", error: `${err}` });
+  }
+}
+
+export async function deletUser(req: Request, res: Response) {
+  try {
+    console.log(req.params.id);
+    const user = await userService.deletUser(req.params.id);
+    res.json({ message: "success", data: user });
   } catch (err) {
     res.status(400).json({ message: "error", error: `${err}` });
   }

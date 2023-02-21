@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:groccery_app/application/state/product_state.dart';
 import 'package:groccery_app/components/product_card.dart';
 import 'package:groccery_app/models/pagination.dart';
 import 'package:groccery_app/models/product_filter.dart';
