@@ -11,16 +11,16 @@ export async function createProduct(
   try {
     const path = req.file != undefined ? req.file.path.replace(/\\/g, "/") : "";
     const product: IProduct = {
-      product_name: req.body.product_name,
+      productName: req.body.productName,
       category: req.body.category,
-      product_short_description: req.body.product_short_description,
-      product_description: req.body.product_description,
-      product_price: req.body.product_price,
-      product_sale_price: req.body.product_sale_price,
-      product_image_path: path,
-      product_SKU: req.body.product_SKU,
-      product_type: req.body.product_type,
-      stack_status: req.body.stack_status,
+      productDescription: req.body.productDescription,
+      productShortDescription: req.body.productShortDescription,
+      productPrice: req.body.productPrice,
+      productSalePrice: req.body.productSalePrice,
+      productImagePath: path,
+      productSKU: req.body.productSKU,
+      productType: req.body.productType,
+      stackStatus: req.body.stackStatus,
     };
     const newProduct = await productService.createProduct(product);
     res.json({ message: "success", data: newProduct });
@@ -36,9 +36,9 @@ export async function getAllProducts(
     const product = await productService.getAllProducts({
       pageSize: req.query.pageSize?.toString(),
       page: req.query.page?.toString(),
-      product_name: req.query.product_name?.toString(),
-      category_id: req.query.category_id?.toString(),
-      sort: req.query.sort?.toString(),
+      productName: req.query.productName?.toString(),
+      categoryId: req.query.categoryId?.toString(),
+      sortBy: req.query.sortBy?.toString(),
     });
     res.json({ message: "success", data: product });
   } catch (err) {
@@ -61,14 +61,15 @@ export async function updateProductById(
   try {
     const { id } = req.params;
     const product: IProduct = {
-      product_name: req.body.product_name,
-      product_short_description: req.body.product_short_description,
-      product_description: req.body.product_description,
-      product_price: req.body.product_price,
-      product_sale_price: req.body.product_sale_price,
-      product_SKU: req.body.product_SKU,
-      product_type: req.body.product_type,
-      stack_status: req.body.stack_status,
+      productName: req.body.productName,
+      category: req.body.category,
+      productDescription: req.body.productDescription,
+      productShortDescription: req.body.productShortDescription,
+      productPrice: req.body.productPrice,
+      productSalePrice: req.body.productSalePrice,
+      productSKU: req.body.productSKU,
+      productType: req.body.productType,
+      stackStatus: req.body.stackStatus,
     };
     const updatedCategory = await productService.updateProduct(id, product);
     res.json({ message: "success", data: updatedCategory });
@@ -83,8 +84,8 @@ export async function deleteProductById(
 ): Promise<void> {
   try {
     const product = await productService.deleteProduct(req.params.id);
-    if (product && product.product_image_path) {
-      await fs.unlink(path.resolve(product.product_image_path));
+    if (product && product.productImagePath) {
+      await fs.unlink(path.resolve(product.productImagePath));
     }
     res.json({ message: "success", data: product });
   } catch (err) {

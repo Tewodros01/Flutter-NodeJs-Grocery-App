@@ -1,40 +1,43 @@
 import mongoose, { Model, Schema, Document } from "mongoose";
 
 interface IProduct {
-  product_name: string;
+  productName: string;
   category?: mongoose.Types.ObjectId;
-  product_short_description: string;
-  product_description: string;
-  product_price: number;
-  product_sale_price?: number;
-  product_image_path?: string;
-  product_SKU?: string;
-  product_type: string;
-  stack_status: boolean;
+  productShortDescription: string;
+  productDescription: string;
+  productPrice: number;
+  productSalePrice?: number;
+  productImagePath?: string;
+  productSKU?: string;
+  productType: string;
+  stackStatus: boolean;
 }
 
-interface IProductDocument extends Document, IProduct {}
+interface IProductDocument extends Document, IProduct {
+  productId: string;
+}
 
 const productSchema: Schema = new Schema(
   {
-    product_name: { type: String, required: true },
+    productName: { type: String, required: true },
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
     },
-    product_short_description: { type: String, required: true },
-    product_description: { type: String, required: true },
-    product_price: { type: Number, required: true },
-    product_sale_price: { type: Number, default: 0 },
-    product_image_path: { type: String },
-    product_SKU: { type: String, required: true },
-    product_type: { type: String, default: "Simple" },
-    stack_status: { type: String, default: "IN" },
+    productShortDescription: { type: String, required: true },
+    productDescription: { type: String, required: true },
+    productPrice: { type: Number, required: true },
+    productSalePrice: { type: Number, default: 0 },
+    productImagePath: { type: String },
+    productSKU: { type: String, required: true },
+    productType: { type: String, default: "Simple" },
+    stackStatus: { type: String, default: "IN" },
+    relatedProduct: [{ type: mongoose.Types.ObjectId, ref: "RelatedProduct" }],
   },
   {
     toJSON: {
       transform: function (doc, ret) {
-        ret.product_id = ret._id.toString();
+        ret.productId = ret._id.toString();
         delete ret._id;
         delete ret.__v;
       },

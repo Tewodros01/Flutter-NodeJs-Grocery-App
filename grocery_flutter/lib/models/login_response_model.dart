@@ -19,27 +19,27 @@ class LoginResponseModel {
 }
 
 class Data {
-  late final String full_name;
+  late final String fullName;
   late final String email;
-  late final String user_id;
+  late final String userId;
   late final String token;
   Data({
-    required this.full_name,
+    required this.fullName,
     required this.email,
-    required this.user_id,
+    required this.userId,
     required this.token,
   });
   Data.fromJson(Map<String, dynamic> json) {
-    full_name = json["full_name"];
+    fullName = json["fullName"];
     email = json["email"];
-    user_id = json["user_id"];
+    userId = json["userId"];
     token = json["token"];
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    data["full_name"] = full_name;
+    data["fullName"] = fullName;
     data["email"] = email;
-    data["user_id"] = user_id;
+    data["userId"] = userId;
     data["token"] = token;
     return data;
   }

@@ -1,19 +1,19 @@
 import mongoose, { Model, Schema, Document } from "mongoose";
 
 interface IUser {
-  full_name: string;
+  fullName: string;
   email: string;
   password: string;
 }
 
 interface IUserDocument extends Document, IUser {
-  user_id: string;
+  userId: string;
   token: string;
 }
 
 const userSchema = new Schema<IUserDocument>(
   {
-    full_name: { type: String, required: true },
+    fullName: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
     token: { type: String, required: true },
@@ -21,16 +21,16 @@ const userSchema = new Schema<IUserDocument>(
   {
     toJSON: {
       transform: function (dec, ret) {
-        ret.user_id = ret._id.toString();
+        ret.userId = ret._id.toString();
         delete ret._id;
         delete ret.__v;
       },
     },
   }
 );
-const user: Model<IUserDocument> = mongoose.model<IUserDocument>(
+const UserModel: Model<IUserDocument> = mongoose.model<IUserDocument>(
   "User",
   userSchema
 );
 
-export { IUser, IUserDocument, user };
+export { IUser, IUserDocument, UserModel };

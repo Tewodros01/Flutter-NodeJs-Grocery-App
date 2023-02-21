@@ -1,5 +1,5 @@
 import MONGO_DB_CONFIG from "../config/app.config";
-import { ISlider, ISliderDocument, Slider } from "../models/slider.model";
+import { ISlider, ISliderDocument, SliderModel } from "../models/slider.model";
 import fs from "fs-extra";
 import path from "path";
 
@@ -11,7 +11,7 @@ export async function createSlider(
       throw new Error("Slider name is required");
     }
 
-    const createdSlider = new Slider(newSlider);
+    const createdSlider = new SliderModel(newSlider);
     await createdSlider.save();
     return createdSlider as ISliderDocument;
   } catch (error: any) {
@@ -32,9 +32,9 @@ export async function getAllSliders(
     let perPage = Math.abs(parseInt(pageSize!)) || MONGO_DB_CONFIG.PAGE_SIZE;
     let pag = (Math.abs(parseInt(page!)) || 1) - 1;
 
-    const sliders = await Slider.find(
+    const sliders = await SliderModel.find(
       condition,
-      "sliderName sliderDescription sliderURL sliderImage"
+      "sliderName sliderDescription sliderURL sliderImagePath"
     )
       .limit(perPage)
       .skip(perPage * pag);
@@ -48,7 +48,7 @@ export async function getAllSliders(
 export async function getSliderById(id: string): Promise<ISliderDocument> {
   try {
     console.log(id);
-    const slider = await Slider.findById(id).lean();
+    const slider = await SliderModel.findById(id).lean();
     if (!slider) throw "not Found slider with" + id;
     else return slider as ISliderDocument;
   } catch (error: any) {
@@ -64,13 +64,13 @@ export async function updateSlider(
   sliderImagePath: string
 ): Promise<ISliderDocument> {
   try {
-    const slider = await Slider.findById(id).lean();
+    const slider = await SliderModel.findById(id).lean();
     console.log(id);
     if (slider && slider.sliderName) {
       const exist = await fs.pathExists(path.resolve(slider.sliderName));
       if (exist) await fs.unlink(path.resolve(slider.sliderName));
     }
-    const updateSlider = await Slider.findByIdAndUpdate(
+    const updateSlider = await SliderModel.findByIdAndUpdate(
       id,
       {
         sliderName,
@@ -89,7 +89,7 @@ export async function updateSlider(
 
 export async function deleteSlider(id: string): Promise<ISliderDocument> {
   try {
-    const slider = await Slider.findByIdAndDelete(id).lean();
+    const slider = await SliderModel.findByIdAndDelete(id).lean();
     if (slider && slider.sliderImagePath) {
       const exist = await fs.pathExists(path.resolve(slider.sliderImagePath));
       if (exist) await fs.unlink(path.resolve(slider.sliderImagePath));

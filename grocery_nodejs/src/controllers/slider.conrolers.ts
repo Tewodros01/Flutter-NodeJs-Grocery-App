@@ -1,8 +1,6 @@
-import express, { Request, Response, Router } from "express";
-
+import { Request, Response } from "express";
 import { ISlider } from "../models/slider.model";
 import * as sliderService from "../services/slider.service";
-import uploadslider from "../middleware/slider.uploads";
 
 export async function createSlider(req: Request, res: Response) {
   try {

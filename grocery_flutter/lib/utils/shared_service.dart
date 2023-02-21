@@ -4,7 +4,6 @@ import 'package:api_cache_manager/api_cache_manager.dart';
 import 'package:api_cache_manager/models/cache_db_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:groccery_app/api/api_service.dart';
 import 'package:groccery_app/models/login_response_model.dart';
 
 class SharedService {

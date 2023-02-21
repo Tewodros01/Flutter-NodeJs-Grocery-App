@@ -51,7 +51,7 @@ class ProductCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 8, left: 10),
                 child: Text(
-                  model!.product_name,
+                  model!.productName,
                   textAlign: TextAlign.left,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -69,7 +69,7 @@ class ProductCard extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          "${Config.currency}${model!.product_price.toString()}",
+                          "${Config.currency}${model!.productPrice.toString()}",
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontSize: 12,
@@ -77,14 +77,14 @@ class ProductCard extends StatelessWidget {
                                 ? Colors.red
                                 : Colors.black,
                             fontWeight: FontWeight.bold,
-                            decoration: model!.product_sale_price > 0
+                            decoration: model!.productSalePrice > 0
                                 ? TextDecoration.lineThrough
                                 : null,
                           ),
                         ),
                         Text(
                           model!.calculateDiscount > 0
-                              ? " ${model!.product_sale_price.toString()}"
+                              ? " ${model!.productSalePrice.toString()}"
                               : "",
                           textAlign: TextAlign.left,
                           style: const TextStyle(

@@ -14,8 +14,8 @@ class ProducstPage extends StatefulWidget {
 }
 
 class _ProducstPageState extends State<ProducstPage> {
-  String? category_id;
-  String? categroy_name;
+  String? categoryId;
+  String? categroyName;
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +30,8 @@ class _ProducstPageState extends State<ProducstPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _ProductFilters(
-              category_id: category_id,
-              category_name: categroy_name,
+              categoryId: categoryId,
+              categoryName: categroyName,
             ),
             Flexible(
               flex: 1,
@@ -46,8 +46,8 @@ class _ProducstPageState extends State<ProducstPage> {
   @override
   void didChangeDependencies() {
     final Map arguments = ModalRoute.of(context)!.settings.arguments as Map;
-    categroy_name = arguments['category_name'];
-    category_id = arguments['category_id'];
+    categroyName = arguments['categoryName'];
+    categoryId = arguments['categoryId'];
     super.didChangeDependencies();
   }
 }
@@ -58,9 +58,9 @@ class _ProductFilters extends ConsumerWidget {
     ProductSortModel(value: "-product_price", lable: "Price: High to Low"),
     ProductSortModel(value: "product_price", lable: "Price: Low to High"),
   ];
-  final String? category_name;
-  final String? category_id;
-  _ProductFilters({Key? key, this.category_name, this.category_id});
+  final String? categoryName;
+  final String? categoryId;
+  _ProductFilters({this.categoryName, this.categoryId});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final filterProvider = ref.watch(productFilterProvider);
@@ -73,7 +73,7 @@ class _ProductFilters extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.all(8),
             child: Text(
-              category_name ?? "Not found",
+              categoryName ?? "Not found",
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15,
@@ -85,18 +85,18 @@ class _ProductFilters extends ConsumerWidget {
               color: Colors.grey[300],
             ),
             child: PopupMenuButton(
-              onSelected: (sort_by) {
+              onSelected: (sortBy) {
                 ProductFilterModel filterModel = ProductFilterModel(
                   paginationModel: PaginationModel(page: 0, pageSize: 10),
-                  category_id: filterProvider.category_id,
-                  sort_by: sort_by.toString(),
+                  categoryId: filterProvider.categoryId,
+                  sortBy: sortBy.toString(),
                 );
                 ref
                     .read(productFilterProvider.notifier)
                     .setProductFilter(filterModel);
                 ref.read(productsNotifierProvider.notifier).getProduct();
               },
-              initialValue: filterProvider.sort_by,
+              initialValue: filterProvider.sortBy,
               itemBuilder: (BuildContext context) {
                 return _sortByOptions.map((item) {
                   return PopupMenuItem(

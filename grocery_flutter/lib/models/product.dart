@@ -11,33 +11,32 @@ List<Product> productsFromJson(dynamic str) =>
 @freezed
 abstract class Product with _$Product {
   factory Product({
-    required String product_id,
-    required String product_name,
+    required String productId,
+    required String productName,
     required Category category,
-    required String product_short_description,
-    required String product_description,
-    required double product_price,
-    required double product_sale_price,
-    required String product_image_path,
-    required String product_SKU,
-    required String product_type,
-    required String stack_status,
+    required String productShortDescription,
+    required String productDescription,
+    required double productPrice,
+    required double productSalePrice,
+    required String productImagePath,
+    required String productSKU,
+    required String productType,
+    required String stackStatus,
   }) = _Product;
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);
 }
 
 extension ProductExt on Product {
-  String get fullImagePath => Config.imageURL + product_image_path;
+  String get fullImagePath => Config.imageURL + productImagePath;
   int get calculateDiscount {
     double disPercent = 0;
 
-    if (!product_price.isNaN) {
-      double regular_price = product_price;
-      double sale_price =
-          product_sale_price > 0 ? product_sale_price : regular_price;
-      double discount = regular_price - sale_price;
-      disPercent = (discount / regular_price) * 100;
+    if (!productPrice.isNaN) {
+      double regularPrice = productPrice;
+      double salePrice = productPrice > 0 ? productSalePrice : regularPrice;
+      double discount = regularPrice - salePrice;
+      disPercent = (discount / regularPrice) * 100;
     }
     return disPercent.round();
   }

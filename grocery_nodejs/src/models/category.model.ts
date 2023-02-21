@@ -1,25 +1,25 @@
 import mongoose, { Model, Schema, Document } from "mongoose";
 
 interface ICategory {
-  category_name: string;
-  category_description: string;
-  category_image_path?: string;
+  categoryName: string;
+  categoryDescription: string;
+  categoryImagePath?: string;
 }
 
 interface ICategoryDocument extends ICategory, Document {
-  category_id: string;
+  categoryId: string;
 }
 
 const categorySchema = new Schema<ICategoryDocument>(
   {
-    category_name: { type: String },
-    category_description: { type: String },
-    category_image_path: { type: String },
+    categoryName: { type: String },
+    categoryDescription: { type: String },
+    categoryImagePath: { type: String },
   },
   {
     toJSON: {
       transform: function (doc, ret) {
-        ret.category_id = ret._id.toString();
+        ret.categoryId = ret._id.toString();
         delete ret._id;
         delete ret.__v;
       },
@@ -27,9 +27,7 @@ const categorySchema = new Schema<ICategoryDocument>(
   }
 );
 
-const Category: Model<ICategoryDocument> = mongoose.model<ICategoryDocument>(
-  "Category",
-  categorySchema
-);
+const CategoryModel: Model<ICategoryDocument> =
+  mongoose.model<ICategoryDocument>("Category", categorySchema);
 
 export { Category, ICategory, ICategoryDocument };

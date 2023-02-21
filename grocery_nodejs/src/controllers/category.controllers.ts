@@ -10,9 +10,9 @@ export async function createCategory(
 ): Promise<void> {
   const filePath = req.file?.path?.replace(/\\/g, "/") || "";
   const categoryType: ICategory = {
-    category_name: req.body.category_name,
-    category_description: req.body.category_description,
-    category_image_path: filePath,
+    categoryName: req.body.categoryName,
+    categoryDescription: req.body.categoryDescription,
+    categoryImagePath: filePath,
   };
   const newCategory = await categoryService.createCategory(categoryType);
   res.json({ message: "success", data: newCategory });
@@ -26,7 +26,7 @@ export async function getCategories(
     const categories = await categoryService.getAllCategories({
       pageSize: req.query.pageSize?.toString(),
       page: req.query.page?.toString(),
-      category_name: req.query.category_name?.toString(),
+      categoryName: req.query.categoryName?.toString(),
     });
     res.json({ message: "success", data: categories });
   } catch (err) {
@@ -54,8 +54,8 @@ export async function updateCategoryById(
   try {
     const { id } = req.params;
     const categoryType: ICategory = {
-      category_name: req.body.category_name,
-      category_description: req.body.category_description,
+      categoryName: req.body.categoryName,
+      categoryDescription: req.body.categoryDescription,
     };
     const updatedCategory = await categoryService.updateCategoryById(
       id,
@@ -73,8 +73,8 @@ export async function deleteCategoryById(
 ): Promise<void> {
   try {
     const category = await categoryService.deleteCategoryById(req.params.id);
-    if (category && category.category_image_path) {
-      await fs.unlink(path.resolve(category.category_image_path));
+    if (category && category.categoryImagePath) {
+      await fs.unlink(path.resolve(category.categoryImagePath));
     } else {
       res.status(404).json({ message: "Category not found" });
     }

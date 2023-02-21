@@ -5,6 +5,7 @@ import 'package:groccery_app/models/category.dart';
 import 'package:groccery_app/models/login_response_model.dart';
 import 'package:groccery_app/models/product.dart';
 import 'package:groccery_app/models/product_filter.dart';
+import 'package:groccery_app/models/slider.model.dart';
 import 'package:groccery_app/utils/shared_service.dart';
 import 'package:http/http.dart' as http;
 
@@ -38,11 +39,11 @@ class ApiService {
       'page': productFilterModel.paginationModel.page.toString(),
       'pageSize': productFilterModel.paginationModel.pageSize.toString(),
     };
-    if (productFilterModel.sort_by != null) {
-      queryString["sort_by"] = productFilterModel.sort_by!;
+    if (productFilterModel.sortBy != null) {
+      queryString["sortBy"] = productFilterModel.sortBy!;
     }
-    if (productFilterModel.category_id != null) {
-      queryString["category_id"] = productFilterModel.category_id!;
+    if (productFilterModel.categoryId != null) {
+      queryString["categoryId"] = productFilterModel.categoryId!;
     }
     var url = Uri.http(Config.apiURL, Config.productAPI, queryString);
 
@@ -57,7 +58,7 @@ class ApiService {
   }
 
   static Future<bool> registerUser(
-      String full_name, String email, String password) async {
+      String fullName, String email, String password) async {
     Map<String, String> requestHeader = {'Content-Type': 'application/json'};
 
     var url = Uri.http(Config.apiURL, Config.registorAPI);
@@ -66,7 +67,7 @@ class ApiService {
       url,
       headers: requestHeader,
       body: jsonEncode(
-        {"full_name": full_name, "email": email, "password": password},
+        {"fullName": fullName, "email": email, "password": password},
       ),
     );
     if (respons.statusCode == 200) {
@@ -97,14 +98,10 @@ class ApiService {
 
   Future<List<SliderModel>?> getSliders(page, pageSize) async {
     Map<String, String> requestHeader = {"Content-Type": "application/json"};
-    Map<String, String> queryString = {
-      'page': page.toString(),
-      'pag_size': pageSize.toString()
-    };
 
     var url = Uri.http(
-      Config.api_URL,
-      Config.slider_api,
+      Config.apiURL,
+      Config.sliderAPI,
     );
 
     var response = await client.get(url, headers: requestHeader);

@@ -20,17 +20,17 @@ Product _$ProductFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Product {
-  String get product_id => throw _privateConstructorUsedError;
-  String get product_name => throw _privateConstructorUsedError;
+  String get productId => throw _privateConstructorUsedError;
+  String get productName => throw _privateConstructorUsedError;
   Category get category => throw _privateConstructorUsedError;
-  String get product_short_description => throw _privateConstructorUsedError;
-  String get product_description => throw _privateConstructorUsedError;
-  double get product_price => throw _privateConstructorUsedError;
-  double get product_sale_price => throw _privateConstructorUsedError;
-  String get product_image_path => throw _privateConstructorUsedError;
-  String get product_SKU => throw _privateConstructorUsedError;
-  String get product_type => throw _privateConstructorUsedError;
-  String get stack_status => throw _privateConstructorUsedError;
+  String get productShortDescription => throw _privateConstructorUsedError;
+  String get productDescription => throw _privateConstructorUsedError;
+  double get productPrice => throw _privateConstructorUsedError;
+  double get productSalePrice => throw _privateConstructorUsedError;
+  String get productImagePath => throw _privateConstructorUsedError;
+  String get productSKU => throw _privateConstructorUsedError;
+  String get productType => throw _privateConstructorUsedError;
+  String get stackStatus => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,17 +43,17 @@ abstract class $ProductCopyWith<$Res> {
       _$ProductCopyWithImpl<$Res, Product>;
   @useResult
   $Res call(
-      {String product_id,
-      String product_name,
+      {String productId,
+      String productName,
       Category category,
-      String product_short_description,
-      String product_description,
-      double product_price,
-      double product_sale_price,
-      String product_image_path,
-      String product_SKU,
-      String product_type,
-      String stack_status});
+      String productShortDescription,
+      String productDescription,
+      double productPrice,
+      double productSalePrice,
+      String productImagePath,
+      String productSKU,
+      String productType,
+      String stackStatus});
 
   $CategoryCopyWith<$Res> get category;
 }
@@ -71,62 +71,62 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? product_id = null,
-    Object? product_name = null,
+    Object? productId = null,
+    Object? productName = null,
     Object? category = null,
-    Object? product_short_description = null,
-    Object? product_description = null,
-    Object? product_price = null,
-    Object? product_sale_price = null,
-    Object? product_image_path = null,
-    Object? product_SKU = null,
-    Object? product_type = null,
-    Object? stack_status = null,
+    Object? productShortDescription = null,
+    Object? productDescription = null,
+    Object? productPrice = null,
+    Object? productSalePrice = null,
+    Object? productImagePath = null,
+    Object? productSKU = null,
+    Object? productType = null,
+    Object? stackStatus = null,
   }) {
     return _then(_value.copyWith(
-      product_id: null == product_id
-          ? _value.product_id
-          : product_id // ignore: cast_nullable_to_non_nullable
+      productId: null == productId
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
               as String,
-      product_name: null == product_name
-          ? _value.product_name
-          : product_name // ignore: cast_nullable_to_non_nullable
+      productName: null == productName
+          ? _value.productName
+          : productName // ignore: cast_nullable_to_non_nullable
               as String,
       category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as Category,
-      product_short_description: null == product_short_description
-          ? _value.product_short_description
-          : product_short_description // ignore: cast_nullable_to_non_nullable
+      productShortDescription: null == productShortDescription
+          ? _value.productShortDescription
+          : productShortDescription // ignore: cast_nullable_to_non_nullable
               as String,
-      product_description: null == product_description
-          ? _value.product_description
-          : product_description // ignore: cast_nullable_to_non_nullable
+      productDescription: null == productDescription
+          ? _value.productDescription
+          : productDescription // ignore: cast_nullable_to_non_nullable
               as String,
-      product_price: null == product_price
-          ? _value.product_price
-          : product_price // ignore: cast_nullable_to_non_nullable
+      productPrice: null == productPrice
+          ? _value.productPrice
+          : productPrice // ignore: cast_nullable_to_non_nullable
               as double,
-      product_sale_price: null == product_sale_price
-          ? _value.product_sale_price
-          : product_sale_price // ignore: cast_nullable_to_non_nullable
+      productSalePrice: null == productSalePrice
+          ? _value.productSalePrice
+          : productSalePrice // ignore: cast_nullable_to_non_nullable
               as double,
-      product_image_path: null == product_image_path
-          ? _value.product_image_path
-          : product_image_path // ignore: cast_nullable_to_non_nullable
+      productImagePath: null == productImagePath
+          ? _value.productImagePath
+          : productImagePath // ignore: cast_nullable_to_non_nullable
               as String,
-      product_SKU: null == product_SKU
-          ? _value.product_SKU
-          : product_SKU // ignore: cast_nullable_to_non_nullable
+      productSKU: null == productSKU
+          ? _value.productSKU
+          : productSKU // ignore: cast_nullable_to_non_nullable
               as String,
-      product_type: null == product_type
-          ? _value.product_type
-          : product_type // ignore: cast_nullable_to_non_nullable
+      productType: null == productType
+          ? _value.productType
+          : productType // ignore: cast_nullable_to_non_nullable
               as String,
-      stack_status: null == stack_status
-          ? _value.stack_status
-          : stack_status // ignore: cast_nullable_to_non_nullable
+      stackStatus: null == stackStatus
+          ? _value.stackStatus
+          : stackStatus // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -148,17 +148,17 @@ abstract class _$$_ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String product_id,
-      String product_name,
+      {String productId,
+      String productName,
       Category category,
-      String product_short_description,
-      String product_description,
-      double product_price,
-      double product_sale_price,
-      String product_image_path,
-      String product_SKU,
-      String product_type,
-      String stack_status});
+      String productShortDescription,
+      String productDescription,
+      double productPrice,
+      double productSalePrice,
+      String productImagePath,
+      String productSKU,
+      String productType,
+      String stackStatus});
 
   @override
   $CategoryCopyWith<$Res> get category;
@@ -174,62 +174,62 @@ class __$$_ProductCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? product_id = null,
-    Object? product_name = null,
+    Object? productId = null,
+    Object? productName = null,
     Object? category = null,
-    Object? product_short_description = null,
-    Object? product_description = null,
-    Object? product_price = null,
-    Object? product_sale_price = null,
-    Object? product_image_path = null,
-    Object? product_SKU = null,
-    Object? product_type = null,
-    Object? stack_status = null,
+    Object? productShortDescription = null,
+    Object? productDescription = null,
+    Object? productPrice = null,
+    Object? productSalePrice = null,
+    Object? productImagePath = null,
+    Object? productSKU = null,
+    Object? productType = null,
+    Object? stackStatus = null,
   }) {
     return _then(_$_Product(
-      product_id: null == product_id
-          ? _value.product_id
-          : product_id // ignore: cast_nullable_to_non_nullable
+      productId: null == productId
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
               as String,
-      product_name: null == product_name
-          ? _value.product_name
-          : product_name // ignore: cast_nullable_to_non_nullable
+      productName: null == productName
+          ? _value.productName
+          : productName // ignore: cast_nullable_to_non_nullable
               as String,
       category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as Category,
-      product_short_description: null == product_short_description
-          ? _value.product_short_description
-          : product_short_description // ignore: cast_nullable_to_non_nullable
+      productShortDescription: null == productShortDescription
+          ? _value.productShortDescription
+          : productShortDescription // ignore: cast_nullable_to_non_nullable
               as String,
-      product_description: null == product_description
-          ? _value.product_description
-          : product_description // ignore: cast_nullable_to_non_nullable
+      productDescription: null == productDescription
+          ? _value.productDescription
+          : productDescription // ignore: cast_nullable_to_non_nullable
               as String,
-      product_price: null == product_price
-          ? _value.product_price
-          : product_price // ignore: cast_nullable_to_non_nullable
+      productPrice: null == productPrice
+          ? _value.productPrice
+          : productPrice // ignore: cast_nullable_to_non_nullable
               as double,
-      product_sale_price: null == product_sale_price
-          ? _value.product_sale_price
-          : product_sale_price // ignore: cast_nullable_to_non_nullable
+      productSalePrice: null == productSalePrice
+          ? _value.productSalePrice
+          : productSalePrice // ignore: cast_nullable_to_non_nullable
               as double,
-      product_image_path: null == product_image_path
-          ? _value.product_image_path
-          : product_image_path // ignore: cast_nullable_to_non_nullable
+      productImagePath: null == productImagePath
+          ? _value.productImagePath
+          : productImagePath // ignore: cast_nullable_to_non_nullable
               as String,
-      product_SKU: null == product_SKU
-          ? _value.product_SKU
-          : product_SKU // ignore: cast_nullable_to_non_nullable
+      productSKU: null == productSKU
+          ? _value.productSKU
+          : productSKU // ignore: cast_nullable_to_non_nullable
               as String,
-      product_type: null == product_type
-          ? _value.product_type
-          : product_type // ignore: cast_nullable_to_non_nullable
+      productType: null == productType
+          ? _value.productType
+          : productType // ignore: cast_nullable_to_non_nullable
               as String,
-      stack_status: null == stack_status
-          ? _value.stack_status
-          : stack_status // ignore: cast_nullable_to_non_nullable
+      stackStatus: null == stackStatus
+          ? _value.stackStatus
+          : stackStatus // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -239,47 +239,47 @@ class __$$_ProductCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Product implements _Product {
   _$_Product(
-      {required this.product_id,
-      required this.product_name,
+      {required this.productId,
+      required this.productName,
       required this.category,
-      required this.product_short_description,
-      required this.product_description,
-      required this.product_price,
-      required this.product_sale_price,
-      required this.product_image_path,
-      required this.product_SKU,
-      required this.product_type,
-      required this.stack_status});
+      required this.productShortDescription,
+      required this.productDescription,
+      required this.productPrice,
+      required this.productSalePrice,
+      required this.productImagePath,
+      required this.productSKU,
+      required this.productType,
+      required this.stackStatus});
 
   factory _$_Product.fromJson(Map<String, dynamic> json) =>
       _$$_ProductFromJson(json);
 
   @override
-  final String product_id;
+  final String productId;
   @override
-  final String product_name;
+  final String productName;
   @override
   final Category category;
   @override
-  final String product_short_description;
+  final String productShortDescription;
   @override
-  final String product_description;
+  final String productDescription;
   @override
-  final double product_price;
+  final double productPrice;
   @override
-  final double product_sale_price;
+  final double productSalePrice;
   @override
-  final String product_image_path;
+  final String productImagePath;
   @override
-  final String product_SKU;
+  final String productSKU;
   @override
-  final String product_type;
+  final String productType;
   @override
-  final String stack_status;
+  final String stackStatus;
 
   @override
   String toString() {
-    return 'Product(product_id: $product_id, product_name: $product_name, category: $category, product_short_description: $product_short_description, product_description: $product_description, product_price: $product_price, product_sale_price: $product_sale_price, product_image_path: $product_image_path, product_SKU: $product_SKU, product_type: $product_type, stack_status: $stack_status)';
+    return 'Product(productId: $productId, productName: $productName, category: $category, productShortDescription: $productShortDescription, productDescription: $productDescription, productPrice: $productPrice, productSalePrice: $productSalePrice, productImagePath: $productImagePath, productSKU: $productSKU, productType: $productType, stackStatus: $stackStatus)';
   }
 
   @override
@@ -287,46 +287,46 @@ class _$_Product implements _Product {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Product &&
-            (identical(other.product_id, product_id) ||
-                other.product_id == product_id) &&
-            (identical(other.product_name, product_name) ||
-                other.product_name == product_name) &&
+            (identical(other.productId, productId) ||
+                other.productId == productId) &&
+            (identical(other.productName, productName) ||
+                other.productName == productName) &&
             (identical(other.category, category) ||
                 other.category == category) &&
-            (identical(other.product_short_description,
-                    product_short_description) ||
-                other.product_short_description == product_short_description) &&
-            (identical(other.product_description, product_description) ||
-                other.product_description == product_description) &&
-            (identical(other.product_price, product_price) ||
-                other.product_price == product_price) &&
-            (identical(other.product_sale_price, product_sale_price) ||
-                other.product_sale_price == product_sale_price) &&
-            (identical(other.product_image_path, product_image_path) ||
-                other.product_image_path == product_image_path) &&
-            (identical(other.product_SKU, product_SKU) ||
-                other.product_SKU == product_SKU) &&
-            (identical(other.product_type, product_type) ||
-                other.product_type == product_type) &&
-            (identical(other.stack_status, stack_status) ||
-                other.stack_status == stack_status));
+            (identical(
+                    other.productShortDescription, productShortDescription) ||
+                other.productShortDescription == productShortDescription) &&
+            (identical(other.productDescription, productDescription) ||
+                other.productDescription == productDescription) &&
+            (identical(other.productPrice, productPrice) ||
+                other.productPrice == productPrice) &&
+            (identical(other.productSalePrice, productSalePrice) ||
+                other.productSalePrice == productSalePrice) &&
+            (identical(other.productImagePath, productImagePath) ||
+                other.productImagePath == productImagePath) &&
+            (identical(other.productSKU, productSKU) ||
+                other.productSKU == productSKU) &&
+            (identical(other.productType, productType) ||
+                other.productType == productType) &&
+            (identical(other.stackStatus, stackStatus) ||
+                other.stackStatus == stackStatus));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      product_id,
-      product_name,
+      productId,
+      productName,
       category,
-      product_short_description,
-      product_description,
-      product_price,
-      product_sale_price,
-      product_image_path,
-      product_SKU,
-      product_type,
-      stack_status);
+      productShortDescription,
+      productDescription,
+      productPrice,
+      productSalePrice,
+      productImagePath,
+      productSKU,
+      productType,
+      stackStatus);
 
   @JsonKey(ignore: true)
   @override
@@ -344,42 +344,42 @@ class _$_Product implements _Product {
 
 abstract class _Product implements Product {
   factory _Product(
-      {required final String product_id,
-      required final String product_name,
+      {required final String productId,
+      required final String productName,
       required final Category category,
-      required final String product_short_description,
-      required final String product_description,
-      required final double product_price,
-      required final double product_sale_price,
-      required final String product_image_path,
-      required final String product_SKU,
-      required final String product_type,
-      required final String stack_status}) = _$_Product;
+      required final String productShortDescription,
+      required final String productDescription,
+      required final double productPrice,
+      required final double productSalePrice,
+      required final String productImagePath,
+      required final String productSKU,
+      required final String productType,
+      required final String stackStatus}) = _$_Product;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$_Product.fromJson;
 
   @override
-  String get product_id;
+  String get productId;
   @override
-  String get product_name;
+  String get productName;
   @override
   Category get category;
   @override
-  String get product_short_description;
+  String get productShortDescription;
   @override
-  String get product_description;
+  String get productDescription;
   @override
-  double get product_price;
+  double get productPrice;
   @override
-  double get product_sale_price;
+  double get productSalePrice;
   @override
-  String get product_image_path;
+  String get productImagePath;
   @override
-  String get product_SKU;
+  String get productSKU;
   @override
-  String get product_type;
+  String get productType;
   @override
-  String get stack_status;
+  String get stackStatus;
   @override
   @JsonKey(ignore: true)
   _$$_ProductCopyWith<_$_Product> get copyWith =>

@@ -1,40 +1,43 @@
 import { FilterQuery } from "mongoose";
-import { Product, IProductDocument, IProduct } from "../models/product.model";
+import {
+  ProductModel,
+  IProductDocument,
+  IProduct,
+} from "../models/product.model";
 import MONGO_DB_CONFIG from "../config/app.config";
-import { ICategory } from "../models/category.model";
 
 export async function getAllProducts(params: {
   pageSize?: string;
   page?: string;
-  product_name?: string;
-  category_id?: string;
-  sort?: string;
+  productName?: string;
+  categoryId?: string;
+  sortBy?: string;
 }): Promise<IProductDocument[]> {
   try {
-    const product_name: string = params.product_name!;
-    const category_id: string = params.category_id!;
+    const productName: string = params.productName!;
+    const categoryId: string = params.categoryId!;
     const condition: FilterQuery<IProduct> = {};
-    if (product_name) {
-      condition["product_name"] = {
-        $regex: new RegExp(product_name),
+    if (productName) {
+      condition["productName"] = {
+        $regex: new RegExp(productName),
         $options: "i",
       };
     }
-    if (category_id) {
-      condition["category"] = category_id;
+    if (categoryId) {
+      condition["category"] = categoryId;
     }
     let perPage: number =
       Math.abs(parseInt(params.pageSize!)) || MONGO_DB_CONFIG.PAGE_SIZE;
     let page: number = (Math.abs(parseInt(params.page!)) || 1) - 1;
 
-    const products: IProductDocument[] = await Product.find(
+    const products: IProductDocument[] = await ProductModel.find(
       condition,
-      "product_id product_name product_short_description product_description product_price product_sale_price product_image_path product_SKU product_type stack_status createdAt updatedAt"
+      "productId productName productShortDescription productDescription productPrice productSalePrice productImagePath productSKU productType stackStatus createdAt updatedAt"
     )
-      .sort(params.sort!)
+      .sort(params.sortBy!)
       .populate(
         "category",
-        "category_name category_description category_image_path"
+        "categoryName categoryDescription categoryImagePath"
       )
       .limit(perPage)
       .skip(perPage * page);
@@ -49,7 +52,7 @@ export async function createProduct(
   productType: IProduct
 ): Promise<IProductDocument> {
   try {
-    const newProduct: IProductDocument = new Product(productType);
+    const newProduct: IProductDocument = new ProductModel(productType);
     await newProduct.save();
     return newProduct;
   } catch (err) {
@@ -58,7 +61,7 @@ export async function createProduct(
 }
 
 export async function getProductById(id: string): Promise<IProductDocument> {
-  const product = await Product.findById(id).lean();
+  const product = await ProductModel.findById(id).lean();
   return product as IProductDocument;
 }
 
@@ -68,7 +71,9 @@ export async function updateProduct(
 ): Promise<IProductDocument | null> {
   try {
     const updatedProduct: IProductDocument | null =
-      await Product.findByIdAndUpdate(id, productType, { new: true }).lean();
+      await ProductModel.findByIdAndUpdate(id, productType, {
+        new: true,
+      }).lean();
     return updatedProduct;
   } catch (err) {
     throw new Error(`Could not update ${err}`);
@@ -79,9 +84,8 @@ export async function deleteProduct(
   id: string
 ): Promise<IProductDocument | null> {
   try {
-    const product: IProductDocument | null = await Product.findByIdAndDelete(
-      id
-    ).lean();
+    const product: IProductDocument | null =
+      await ProductModel.findByIdAndDelete(id).lean();
     return product;
   } catch (err) {
     throw new Error(`Could not delete ${err}`);

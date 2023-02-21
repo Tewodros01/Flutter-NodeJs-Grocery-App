@@ -186,7 +186,7 @@ class _LogInPageState extends State<LogInPage> {
             child: RichText(
               text: TextSpan(
                 children: <TextSpan>[
-                  TextSpan(
+                  const TextSpan(
                     text: "Dont have an account",
                     style: TextStyle(
                       color: Colors.black,
@@ -194,7 +194,7 @@ class _LogInPageState extends State<LogInPage> {
                   ),
                   TextSpan(
                     text: "Sign Up",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.deepOrangeAccent,
                     ),
                     recognizer: TapGestureRecognizer()

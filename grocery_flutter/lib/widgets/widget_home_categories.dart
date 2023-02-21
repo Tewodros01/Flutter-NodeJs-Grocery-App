@@ -61,7 +61,7 @@ class HomeCategoryWidget extends ConsumerWidget {
             onTap: () {
               ProductFilterModel filterModel = ProductFilterModel(
                 paginationModel: PaginationModel(page: 1, pageSize: 10),
-                category_id: data.category_id,
+                categoryId: data.categoryId,
               );
               ref
                   .read(productFilterProvider.notifier)
@@ -69,8 +69,8 @@ class HomeCategoryWidget extends ConsumerWidget {
               ref.read(productsNotifierProvider.notifier).getProduct();
 
               Get.toNamed("/products", arguments: {
-                'category_id': data.category_id,
-                'category_name': data.category_name,
+                'categoryId': data.categoryId,
+                'categoryName': data.categoryName,
               });
             },
             child: Padding(
@@ -92,7 +92,7 @@ class HomeCategoryWidget extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        data.category_name,
+                        data.categoryName,
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,

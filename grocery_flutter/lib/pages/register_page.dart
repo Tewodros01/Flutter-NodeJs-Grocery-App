@@ -259,7 +259,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   password!,
                 ).then(
                   (response) {
-                    print(response);
+                    // print(response);
                     setState(() {
                       isAsyncCallProcess = false;
                     });

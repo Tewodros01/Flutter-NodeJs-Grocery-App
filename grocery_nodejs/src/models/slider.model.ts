@@ -28,9 +28,9 @@ const sliderSchema = new Schema<ISlider>(
   }
 );
 
-const Slider: Model<ISliderDocument> = mongoose.model<ISliderDocument>(
+const SliderModel: Model<ISliderDocument> = mongoose.model<ISliderDocument>(
   "Slider",
   sliderSchema
 );
 
-export { ISlider, ISliderDocument, Slider };
+export { ISlider, ISliderDocument, SliderModel };

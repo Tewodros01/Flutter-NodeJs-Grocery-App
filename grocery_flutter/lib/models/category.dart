@@ -9,15 +9,16 @@ List<Category> categoriesFromJson(dynamic str) =>
 
 @freezed
 abstract class Category with _$Category {
-  factory Category(
-      {required String category_name,
-      required String category_image_path,
-      required String category_id}) = _Category;
+  factory Category({
+    required String categoryName,
+    required String categoryImagePath,
+    required String categoryId,
+  }) = _Category;
 
   factory Category.fromJson(Map<String, dynamic> json) =>
       _$CategoryFromJson(json);
 }
 
 extension CategoryExt on Category {
-  String get fullImagePath => Config.imageURL + category_image_path;
+  String get fullImagePath => Config.imageURL + categoryImagePath;
 }

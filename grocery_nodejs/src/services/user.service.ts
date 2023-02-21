@@ -1,4 +1,4 @@
-import { IUser, IUserDocument, user } from "../models/user.model";
+import { IUser, IUserDocument, UserModel } from "../models/user.model";
 import bcrypt from "bcrypt";
 import MONGO_DB_CONFIG from "../config/app.config";
 import * as auth from "../middleware/auth";
@@ -8,7 +8,7 @@ export async function login(
   password: string
 ): Promise<string | null | IUserDocument> {
   try {
-    const logInUser = await user.findOne({ email });
+    const logInUser = await UserModel.findOne({ email });
     if (
       logInUser &&
       (await bcrypt.compare(
@@ -31,7 +31,7 @@ export async function register(newUser: IUser): Promise<IUserDocument> {
       throw new Error("Email is required");
     }
 
-    const existingUser = await user.findOne({ email: newUser.email });
+    const existingUser = await UserModel.findOne({ email: newUser.email });
     if (existingUser) {
       throw new Error("Email already registered");
     }
@@ -42,7 +42,7 @@ export async function register(newUser: IUser): Promise<IUserDocument> {
     );
     newUser.password = hash;
 
-    const registorUser = new user(newUser);
+    const registorUser = new UserModel(newUser);
     const token = auth.generateAccessToken(registorUser.toJSON());
     registorUser.token = token; // Add token value to user object
     await registorUser.save(); // Save user object to the database
@@ -61,8 +61,7 @@ export async function getAllUser(params: {
     const perPage =
       Math.abs(parseInt(params.pageSize ?? "")) || MONGO_DB_CONFIG.PAGE_SIZE;
     const page = (Math.abs(parseInt(params.page ?? "")) || 1) - 1;
-    const users = await user
-      .find()
+    const users = await UserModel.find()
       .limit(perPage)
       .skip(perPage * page);
     return users as IUserDocument[];
@@ -74,7 +73,7 @@ export async function getAllUser(params: {
 export async function deletUser(id: String): Promise<IUserDocument> {
   try {
     console.log(id);
-    const deletedUser = await user.findByIdAndDelete(id).lean();
+    const deletedUser = await UserModel.findByIdAndDelete(id).lean();
     return deletedUser as IUserDocument;
   } catch (err) {
     throw new Error(`Could not dlete ${err}`);

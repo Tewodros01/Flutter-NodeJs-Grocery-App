@@ -1,25 +1,25 @@
 import {
-  Category,
+  CategoryModel,
   ICategoryDocument,
   ICategory,
 } from "../models/category.model";
 import MONGO_DB_CONFIG from "../config/app.config";
 
 export async function getCategoryById(id: string): Promise<ICategoryDocument> {
-  const category = await Category.findById(id).lean();
+  const category = await CategoryModel.findById(id).lean();
   return category as ICategoryDocument;
 }
 
 export async function getAllCategories(params: {
-  category_name?: string;
+  categoryName?: string;
   pageSize?: string;
   page?: string;
 }): Promise<ICategoryDocument[]> {
   try {
-    const category_name = params.category_name;
-    const condition = category_name
+    const categoryName = params.categoryName;
+    const condition = categoryName
       ? {
-          category_name: { $regex: new RegExp(category_name), $options: "i" },
+          categoryName: { $regex: new RegExp(categoryName), $options: "i" },
         }
       : {};
 
@@ -27,9 +27,9 @@ export async function getAllCategories(params: {
       Math.abs(parseInt(params.pageSize!)) || MONGO_DB_CONFIG.PAGE_SIZE;
     const page = (Math.abs(parseInt(params.page!)) || 1) - 1;
 
-    const categories = await Category.find(
+    const categories = await CategoryModel.find(
       condition,
-      "category_name category_image_path"
+      "categoryName categoryImagePath"
     )
       .limit(perPage)
       .skip(perPage * page);
@@ -43,7 +43,7 @@ export async function getAllCategories(params: {
 export async function createCategory(
   categoryType: ICategory
 ): Promise<ICategoryDocument> {
-  const newCategory = new Category(categoryType);
+  const newCategory = new CategoryModel(categoryType);
   await newCategory.save();
   return newCategory as ICategoryDocument;
 }
@@ -52,15 +52,19 @@ export async function updateCategoryById(
   id: string,
   categoryType: ICategory
 ): Promise<ICategoryDocument> {
-  const updatedCategory = await Category.findByIdAndUpdate(id, categoryType, {
-    new: true,
-  }).lean();
+  const updatedCategory = await CategoryModel.findByIdAndUpdate(
+    id,
+    categoryType,
+    {
+      new: true,
+    }
+  ).lean();
   return updatedCategory as ICategoryDocument;
 }
 
 export async function deleteCategoryById(
   id: string
 ): Promise<ICategoryDocument> {
-  const category = await Category.findByIdAndDelete(id).lean();
+  const category = await CategoryModel.findByIdAndDelete(id).lean();
   return category as ICategoryDocument;
 }

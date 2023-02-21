@@ -25,9 +25,9 @@ class _DashboardPageState extends State<DashboardPage> {
         unselectedItemColor: Colors.black,
         type: BottomNavigationBarType.shifting,
         currentIndex: index,
-        onTap: (_index) {
+        onTap: (i) {
           setState(() {
-            index = _index;
+            index = i;
           });
         },
         items: const [
