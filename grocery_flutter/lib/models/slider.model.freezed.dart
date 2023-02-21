@@ -20,9 +20,11 @@ SliderModel _$SliderModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SliderModel {
-  String get slider_name => throw _privateConstructorUsedError;
-  String get slider_image => throw _privateConstructorUsedError;
-  String get slider_id => throw _privateConstructorUsedError;
+  String get sliderId => throw _privateConstructorUsedError;
+  String get sliderName => throw _privateConstructorUsedError;
+  String get sliderDescription => throw _privateConstructorUsedError;
+  String get sliderURL => throw _privateConstructorUsedError;
+  String get sliderImagePath => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +38,12 @@ abstract class $SliderModelCopyWith<$Res> {
           SliderModel value, $Res Function(SliderModel) then) =
       _$SliderModelCopyWithImpl<$Res, SliderModel>;
   @useResult
-  $Res call({String slider_name, String slider_image, String slider_id});
+  $Res call(
+      {String sliderId,
+      String sliderName,
+      String sliderDescription,
+      String sliderURL,
+      String sliderImagePath});
 }
 
 /// @nodoc
@@ -52,22 +59,32 @@ class _$SliderModelCopyWithImpl<$Res, $Val extends SliderModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? slider_name = null,
-    Object? slider_image = null,
-    Object? slider_id = null,
+    Object? sliderId = null,
+    Object? sliderName = null,
+    Object? sliderDescription = null,
+    Object? sliderURL = null,
+    Object? sliderImagePath = null,
   }) {
     return _then(_value.copyWith(
-      slider_name: null == slider_name
-          ? _value.slider_name
-          : slider_name // ignore: cast_nullable_to_non_nullable
+      sliderId: null == sliderId
+          ? _value.sliderId
+          : sliderId // ignore: cast_nullable_to_non_nullable
               as String,
-      slider_image: null == slider_image
-          ? _value.slider_image
-          : slider_image // ignore: cast_nullable_to_non_nullable
+      sliderName: null == sliderName
+          ? _value.sliderName
+          : sliderName // ignore: cast_nullable_to_non_nullable
               as String,
-      slider_id: null == slider_id
-          ? _value.slider_id
-          : slider_id // ignore: cast_nullable_to_non_nullable
+      sliderDescription: null == sliderDescription
+          ? _value.sliderDescription
+          : sliderDescription // ignore: cast_nullable_to_non_nullable
+              as String,
+      sliderURL: null == sliderURL
+          ? _value.sliderURL
+          : sliderURL // ignore: cast_nullable_to_non_nullable
+              as String,
+      sliderImagePath: null == sliderImagePath
+          ? _value.sliderImagePath
+          : sliderImagePath // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -79,7 +96,12 @@ abstract class _$$_SliderCopyWith<$Res> implements $SliderModelCopyWith<$Res> {
       __$$_SliderCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String slider_name, String slider_image, String slider_id});
+  $Res call(
+      {String sliderId,
+      String sliderName,
+      String sliderDescription,
+      String sliderURL,
+      String sliderImagePath});
 }
 
 /// @nodoc
@@ -92,22 +114,32 @@ class __$$_SliderCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? slider_name = null,
-    Object? slider_image = null,
-    Object? slider_id = null,
+    Object? sliderId = null,
+    Object? sliderName = null,
+    Object? sliderDescription = null,
+    Object? sliderURL = null,
+    Object? sliderImagePath = null,
   }) {
     return _then(_$_Slider(
-      slider_name: null == slider_name
-          ? _value.slider_name
-          : slider_name // ignore: cast_nullable_to_non_nullable
+      sliderId: null == sliderId
+          ? _value.sliderId
+          : sliderId // ignore: cast_nullable_to_non_nullable
               as String,
-      slider_image: null == slider_image
-          ? _value.slider_image
-          : slider_image // ignore: cast_nullable_to_non_nullable
+      sliderName: null == sliderName
+          ? _value.sliderName
+          : sliderName // ignore: cast_nullable_to_non_nullable
               as String,
-      slider_id: null == slider_id
-          ? _value.slider_id
-          : slider_id // ignore: cast_nullable_to_non_nullable
+      sliderDescription: null == sliderDescription
+          ? _value.sliderDescription
+          : sliderDescription // ignore: cast_nullable_to_non_nullable
+              as String,
+      sliderURL: null == sliderURL
+          ? _value.sliderURL
+          : sliderURL // ignore: cast_nullable_to_non_nullable
+              as String,
+      sliderImagePath: null == sliderImagePath
+          ? _value.sliderImagePath
+          : sliderImagePath // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -117,23 +149,29 @@ class __$$_SliderCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Slider implements _Slider {
   _$_Slider(
-      {required this.slider_name,
-      required this.slider_image,
-      required this.slider_id});
+      {required this.sliderId,
+      required this.sliderName,
+      required this.sliderDescription,
+      required this.sliderURL,
+      required this.sliderImagePath});
 
   factory _$_Slider.fromJson(Map<String, dynamic> json) =>
       _$$_SliderFromJson(json);
 
   @override
-  final String slider_name;
+  final String sliderId;
   @override
-  final String slider_image;
+  final String sliderName;
   @override
-  final String slider_id;
+  final String sliderDescription;
+  @override
+  final String sliderURL;
+  @override
+  final String sliderImagePath;
 
   @override
   String toString() {
-    return 'SliderModel(slider_name: $slider_name, slider_image: $slider_image, slider_id: $slider_id)';
+    return 'SliderModel(sliderId: $sliderId, sliderName: $sliderName, sliderDescription: $sliderDescription, sliderURL: $sliderURL, sliderImagePath: $sliderImagePath)';
   }
 
   @override
@@ -141,18 +179,22 @@ class _$_Slider implements _Slider {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Slider &&
-            (identical(other.slider_name, slider_name) ||
-                other.slider_name == slider_name) &&
-            (identical(other.slider_image, slider_image) ||
-                other.slider_image == slider_image) &&
-            (identical(other.slider_id, slider_id) ||
-                other.slider_id == slider_id));
+            (identical(other.sliderId, sliderId) ||
+                other.sliderId == sliderId) &&
+            (identical(other.sliderName, sliderName) ||
+                other.sliderName == sliderName) &&
+            (identical(other.sliderDescription, sliderDescription) ||
+                other.sliderDescription == sliderDescription) &&
+            (identical(other.sliderURL, sliderURL) ||
+                other.sliderURL == sliderURL) &&
+            (identical(other.sliderImagePath, sliderImagePath) ||
+                other.sliderImagePath == sliderImagePath));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, slider_name, slider_image, slider_id);
+  int get hashCode => Object.hash(runtimeType, sliderId, sliderName,
+      sliderDescription, sliderURL, sliderImagePath);
 
   @JsonKey(ignore: true)
   @override
@@ -170,18 +212,24 @@ class _$_Slider implements _Slider {
 
 abstract class _Slider implements SliderModel {
   factory _Slider(
-      {required final String slider_name,
-      required final String slider_image,
-      required final String slider_id}) = _$_Slider;
+      {required final String sliderId,
+      required final String sliderName,
+      required final String sliderDescription,
+      required final String sliderURL,
+      required final String sliderImagePath}) = _$_Slider;
 
   factory _Slider.fromJson(Map<String, dynamic> json) = _$_Slider.fromJson;
 
   @override
-  String get slider_name;
+  String get sliderId;
   @override
-  String get slider_image;
+  String get sliderName;
   @override
-  String get slider_id;
+  String get sliderDescription;
+  @override
+  String get sliderURL;
+  @override
+  String get sliderImagePath;
   @override
   @JsonKey(ignore: true)
   _$$_SliderCopyWith<_$_Slider> get copyWith =>

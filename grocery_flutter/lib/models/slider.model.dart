@@ -10,9 +10,11 @@ List<SliderModel> slidersFromJson(dynamic json) =>
 @freezed
 abstract class SliderModel with _$SliderModel {
   factory SliderModel({
-    required String slider_name,
-    required String slider_image,
-    required String slider_id,
+    required String sliderId,
+    required String sliderName,
+    required String sliderDescription,
+    required String sliderURL,
+    required String sliderImagePath,
   }) = _Slider;
 
   factory SliderModel.fromJson(Map<String, dynamic> json) =>
@@ -20,5 +22,5 @@ abstract class SliderModel with _$SliderModel {
 }
 
 extension SliderModelExt on SliderModel {
-  String get fullImagePath => Config.imageURL + slider_image;
+  String get fullImagePath => Config.imageURL + sliderImagePath;
 }
