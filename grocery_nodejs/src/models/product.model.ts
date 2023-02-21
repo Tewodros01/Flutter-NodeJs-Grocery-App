@@ -32,7 +32,7 @@ const productSchema: Schema = new Schema(
     productSKU: { type: String, required: true },
     productType: { type: String, default: "Simple" },
     stackStatus: { type: String, default: "IN" },
-    relatedProduct: [{ type: mongoose.Types.ObjectId, ref: "RelatedProduct" }],
+    relatedProducts: [{ type: mongoose.Types.ObjectId, ref: "RelatedProduct" }],
   },
   {
     toJSON: {
@@ -45,9 +45,9 @@ const productSchema: Schema = new Schema(
   }
 );
 
-const Product: Model<IProductDocument> = mongoose.model<IProductDocument>(
+const ProductModel: Model<IProductDocument> = mongoose.model<IProductDocument>(
   "Product",
   productSchema
 );
 
-export { Product, IProduct, IProductDocument };
+export { ProductModel, IProduct, IProductDocument };
