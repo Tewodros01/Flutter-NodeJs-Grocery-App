@@ -5,7 +5,7 @@ import {
   RelatedProductModel,
 } from "../models/related-product.model";
 
-export async function addRelatedproduct(
+export async function addRelatedProduct(
   relatedProduct: IRelatedProduct
 ): Promise<IRelatedProductDocument> {
   try {
@@ -19,7 +19,7 @@ export async function addRelatedproduct(
     const newRelatedProduct = new RelatedProductModel(relatedProduct);
     await newRelatedProduct.save();
 
-    await ProductModel.findByIdAndUpdate(
+    await ProductModel.findOneAndUpdate(
       relatedProduct.product,
       {
         $addToSet: {
@@ -31,6 +31,15 @@ export async function addRelatedproduct(
 
     return newRelatedProduct;
   } catch (err) {
-    throw new Error(`Error cannot add related Product: ${err}`);
+    throw new Error(`Error can not add related Product: ${err}`);
+  }
+}
+
+export async function removeRelatedProduct(id: string) {
+  try {
+    const relatedProduct = RelatedProductModel.findByIdAndRemove(id);
+    return relatedProduct;
+  } catch (err) {
+    throw new Error(`Error can not remove related product ${err}`);
   }
 }

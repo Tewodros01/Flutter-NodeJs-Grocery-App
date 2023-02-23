@@ -19,6 +19,7 @@ mixin _$ProductFilterModel {
   PaginationModel get paginationModel => throw _privateConstructorUsedError;
   String? get categoryId => throw _privateConstructorUsedError;
   String? get sortBy => throw _privateConstructorUsedError;
+  List<String>? get productId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductFilterModelCopyWith<ProductFilterModel> get copyWith =>
@@ -32,7 +33,10 @@ abstract class $ProductFilterModelCopyWith<$Res> {
       _$ProductFilterModelCopyWithImpl<$Res, ProductFilterModel>;
   @useResult
   $Res call(
-      {PaginationModel paginationModel, String? categoryId, String? sortBy});
+      {PaginationModel paginationModel,
+      String? categoryId,
+      String? sortBy,
+      List<String>? productId});
 
   $PaginationModelCopyWith<$Res> get paginationModel;
 }
@@ -53,6 +57,7 @@ class _$ProductFilterModelCopyWithImpl<$Res, $Val extends ProductFilterModel>
     Object? paginationModel = null,
     Object? categoryId = freezed,
     Object? sortBy = freezed,
+    Object? productId = freezed,
   }) {
     return _then(_value.copyWith(
       paginationModel: null == paginationModel
@@ -67,6 +72,10 @@ class _$ProductFilterModelCopyWithImpl<$Res, $Val extends ProductFilterModel>
           ? _value.sortBy
           : sortBy // ignore: cast_nullable_to_non_nullable
               as String?,
+      productId: freezed == productId
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 
@@ -88,7 +97,10 @@ abstract class _$$_ProductFilterModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {PaginationModel paginationModel, String? categoryId, String? sortBy});
+      {PaginationModel paginationModel,
+      String? categoryId,
+      String? sortBy,
+      List<String>? productId});
 
   @override
   $PaginationModelCopyWith<$Res> get paginationModel;
@@ -108,6 +120,7 @@ class __$$_ProductFilterModelCopyWithImpl<$Res>
     Object? paginationModel = null,
     Object? categoryId = freezed,
     Object? sortBy = freezed,
+    Object? productId = freezed,
   }) {
     return _then(_$_ProductFilterModel(
       paginationModel: null == paginationModel
@@ -122,6 +135,10 @@ class __$$_ProductFilterModelCopyWithImpl<$Res>
           ? _value.sortBy
           : sortBy // ignore: cast_nullable_to_non_nullable
               as String?,
+      productId: freezed == productId
+          ? _value._productId
+          : productId // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -130,7 +147,11 @@ class __$$_ProductFilterModelCopyWithImpl<$Res>
 
 class _$_ProductFilterModel implements _ProductFilterModel {
   _$_ProductFilterModel(
-      {required this.paginationModel, this.categoryId, this.sortBy});
+      {required this.paginationModel,
+      this.categoryId,
+      this.sortBy,
+      final List<String>? productId})
+      : _productId = productId;
 
   @override
   final PaginationModel paginationModel;
@@ -138,10 +159,19 @@ class _$_ProductFilterModel implements _ProductFilterModel {
   final String? categoryId;
   @override
   final String? sortBy;
+  final List<String>? _productId;
+  @override
+  List<String>? get productId {
+    final value = _productId;
+    if (value == null) return null;
+    if (_productId is EqualUnmodifiableListView) return _productId;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'ProductFilterModel(paginationModel: $paginationModel, categoryId: $categoryId, sortBy: $sortBy)';
+    return 'ProductFilterModel(paginationModel: $paginationModel, categoryId: $categoryId, sortBy: $sortBy, productId: $productId)';
   }
 
   @override
@@ -153,12 +183,14 @@ class _$_ProductFilterModel implements _ProductFilterModel {
                 other.paginationModel == paginationModel) &&
             (identical(other.categoryId, categoryId) ||
                 other.categoryId == categoryId) &&
-            (identical(other.sortBy, sortBy) || other.sortBy == sortBy));
+            (identical(other.sortBy, sortBy) || other.sortBy == sortBy) &&
+            const DeepCollectionEquality()
+                .equals(other._productId, _productId));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, paginationModel, categoryId, sortBy);
+  int get hashCode => Object.hash(runtimeType, paginationModel, categoryId,
+      sortBy, const DeepCollectionEquality().hash(_productId));
 
   @JsonKey(ignore: true)
   @override
@@ -172,7 +204,8 @@ abstract class _ProductFilterModel implements ProductFilterModel {
   factory _ProductFilterModel(
       {required final PaginationModel paginationModel,
       final String? categoryId,
-      final String? sortBy}) = _$_ProductFilterModel;
+      final String? sortBy,
+      final List<String>? productId}) = _$_ProductFilterModel;
 
   @override
   PaginationModel get paginationModel;
@@ -180,6 +213,8 @@ abstract class _ProductFilterModel implements ProductFilterModel {
   String? get categoryId;
   @override
   String? get sortBy;
+  @override
+  List<String>? get productId;
   @override
   @JsonKey(ignore: true)
   _$$_ProductFilterModelCopyWith<_$_ProductFilterModel> get copyWith =>

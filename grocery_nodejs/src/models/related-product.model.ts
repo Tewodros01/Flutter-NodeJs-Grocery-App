@@ -15,7 +15,6 @@ const relatedProductSchema = new Schema(
   {
     toJSON: {
       transform: function (dec, ret) {
-        delete ret._id;
         delete ret.__v;
       },
     },

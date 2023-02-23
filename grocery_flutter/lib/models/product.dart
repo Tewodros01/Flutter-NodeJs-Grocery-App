@@ -22,6 +22,7 @@ abstract class Product with _$Product {
     required String productSKU,
     required String productType,
     required String stackStatus,
+    List<String>? relatedProducts,
   }) = _Product;
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);

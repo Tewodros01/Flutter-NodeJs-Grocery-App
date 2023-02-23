@@ -45,6 +45,9 @@ class ApiService {
     if (productFilterModel.categoryId != null) {
       queryString["categoryId"] = productFilterModel.categoryId!;
     }
+    if (productFilterModel.productId != null) {
+      queryString["productId"] = productFilterModel.productId!.join(",");
+    }
     var url = Uri.http(Config.apiURL, Config.productAPI, queryString);
 
     var response = await client.get(url, headers: requestHeaders);
@@ -110,6 +113,19 @@ class ApiService {
       var data = jsonDecode(response.body);
 
       return slidersFromJson(data["data"]);
+    } else {
+      return null;
+    }
+  }
+
+  Future<Product?> getProductDetails(String productId) async {
+    Map<String, String> requestHeader = {'Content-Type': 'application/json'};
+
+    var url = Uri.http(Config.apiURL, "${Config.productAPI}/$productId");
+    var response = await client.get(url, headers: requestHeader);
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return Product.fromJson(data);
     } else {
       return null;
     }

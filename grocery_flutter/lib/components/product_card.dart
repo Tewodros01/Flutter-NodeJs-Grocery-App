@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:groccery_app/config.dart';
+import 'package:get/get.dart';
 import 'package:groccery_app/models/product.dart';
+import "package:groccery_app/config.dart";
 
 class ProductCard extends StatelessWidget {
   final Product? model;
@@ -10,10 +11,8 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 150,
+      decoration: const BoxDecoration(color: Colors.white),
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-      ),
       child: Stack(
         children: [
           Column(
@@ -40,12 +39,18 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 100,
-                width: MediaQuery.of(context).size.width,
-                child: Image.network(
-                  model!.fullImagePath,
-                  fit: BoxFit.cover,
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed("/product-detail",
+                      arguments: {'productId': model!.productId});
+                },
+                child: SizedBox(
+                  height: 100,
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.network(
+                    model!.fullImagePath,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               Padding(
@@ -61,51 +66,54 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Flexible(
-                    child: Row(
-                      children: [
-                        Text(
-                          "${Config.currency}${model!.productPrice.toString()}",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: model!.calculateDiscount > 0
-                                ? Colors.red
-                                : Colors.black,
-                            fontWeight: FontWeight.bold,
-                            decoration: model!.productSalePrice > 0
-                                ? TextDecoration.lineThrough
-                                : null,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: Row(
+                        children: [
+                          Text(
+                            "${Config.currency}${model!.productPrice.toString()}",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: model!.calculateDiscount > 0
+                                  ? Colors.red
+                                  : Colors.black,
+                              fontWeight: FontWeight.bold,
+                              decoration: model!.productSalePrice > 0
+                                  ? TextDecoration.lineThrough
+                                  : null,
+                            ),
                           ),
-                        ),
-                        Text(
-                          model!.calculateDiscount > 0
-                              ? " ${model!.productSalePrice.toString()}"
-                              : "",
-                          textAlign: TextAlign.left,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
+                          Text(
+                            (model!.calculateDiscount > 0)
+                                ? " ${model!.productSalePrice.toString()}"
+                                : "",
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: const Icon(
-                      Icons.favorite,
-                      color: Colors.grey,
-                      size: 20,
-                    ),
-                  ),
-                ],
-              ),
+                    GestureDetector(
+                      child: const Icon(
+                        Icons.favorite,
+                        color: Colors.grey,
+                        size: 20,
+                      ),
+                      onTap: () {},
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ],

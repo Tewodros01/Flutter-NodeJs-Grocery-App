@@ -14,11 +14,11 @@ function authenticationToken(req: IRequest, res: Response, next: NextFunction) {
   const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
-    return res.sendStatus(400);
+    return res.sendStatus(403).send({ message: "No Token Provider" });
   }
   jwt.verify(token, TOKEN_KEY, (err, user) => {
     if (err) {
-      return res.sendStatus(403);
+      return res.sendStatus(401).send({ message: "Unauthorized!" });
     }
     req.user = user as IUser;
     next();

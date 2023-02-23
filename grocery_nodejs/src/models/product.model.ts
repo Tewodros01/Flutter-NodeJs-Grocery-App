@@ -1,8 +1,8 @@
-import mongoose, { Model, Schema, Document } from "mongoose";
+import mongoose, { Model, Schema, Document, Types } from "mongoose";
 
 interface IProduct {
   productName: string;
-  category?: mongoose.Types.ObjectId;
+  category?: Types.ObjectId;
   productShortDescription: string;
   productDescription: string;
   productPrice: number;
@@ -15,13 +15,14 @@ interface IProduct {
 
 interface IProductDocument extends Document, IProduct {
   productId: string;
+  relatedProducts: Types.ObjectId;
 }
 
 const productSchema: Schema = new Schema(
   {
     productName: { type: String, required: true },
     category: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Types.ObjectId,
       ref: "Category",
     },
     productShortDescription: { type: String, required: true },
@@ -32,7 +33,7 @@ const productSchema: Schema = new Schema(
     productSKU: { type: String, required: true },
     productType: { type: String, default: "Simple" },
     stackStatus: { type: String, default: "IN" },
-    relatedProducts: [{ type: mongoose.Types.ObjectId, ref: "RelatedProduct" }],
+    relatedProducts: [{ type: Types.ObjectId, ref: "RelatedProduct" }],
   },
   {
     toJSON: {
@@ -42,6 +43,7 @@ const productSchema: Schema = new Schema(
         delete ret.__v;
       },
     },
+    timestamps: true,
   }
 );
 

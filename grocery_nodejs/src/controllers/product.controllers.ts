@@ -34,6 +34,7 @@ export async function getAllProducts(
 ): Promise<void> {
   try {
     const product = await productService.getAllProducts({
+      productId: req.query.productId?.toString(),
       pageSize: req.query.pageSize?.toString(),
       page: req.query.page?.toString(),
       productName: req.query.productName?.toString(),
@@ -50,8 +51,12 @@ export async function getProductById(
   req: Request,
   res: Response
 ): Promise<void> {
-  const category = await productService.getProductById(req.params.id);
-  res.json(category);
+  try {
+    const category = await productService.getProductById(req.params.id);
+    res.json({ message: "success", data: category });
+  } catch (err) {
+    res.status(400).json({ message: "error", error: `${err}` });
+  }
 }
 
 export async function updateProductById(
