@@ -37,7 +37,7 @@ export async function addCart(
   }
 }
 
-export async function getCart(userId: string) {
+export async function getCart(userId?: string) {
   try {
     const cart = await CartModel.find({ userId: userId }).populate({
       path: "products",

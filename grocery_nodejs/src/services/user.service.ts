@@ -9,19 +9,21 @@ export async function login(
 ): Promise<string | null | IUserDocument> {
   try {
     const logInUser = await UserModel.findOne({ email });
-    if (
-      logInUser &&
-      (await bcrypt.compare(
-        password + MONGO_DB_CONFIG.BCRYPT_PASSWORD,
-        logInUser.password
-      ))
-    ) {
-      const token = auth.generateAccessToken(logInUser.toJSON());
-      return logInUser;
+    if (!logInUser) {
+      throw new Error("Invalid email or password");
     }
-    return null;
+    const isPasswordValid = await bcrypt.compare(
+      password + MONGO_DB_CONFIG.BCRYPT_PASSWORD,
+      logInUser.password
+    );
+    if (!isPasswordValid) {
+      throw new Error("Invalid email or password");
+    }
+    const token = auth.generateAccessToken(logInUser.toJSON());
+    logInUser.token = token;
+    return logInUser;
   } catch (err) {
-    throw new Error(`Could not log in: ${err}`);
+    throw new Error(` ${err}`);
   }
 }
 
