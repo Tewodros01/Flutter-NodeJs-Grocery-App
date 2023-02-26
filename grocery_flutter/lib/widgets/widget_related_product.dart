@@ -24,7 +24,7 @@ class RelatedProductWidget extends ConsumerWidget {
             ),
           ),
           Visibility(
-            visible: relatedProducts.isEmpty,
+            visible: relatedProducts.isNotEmpty,
             child: _productList(ref),
           )
         ],
@@ -33,6 +33,7 @@ class RelatedProductWidget extends ConsumerWidget {
   }
 
   Widget _productList(WidgetRef ref) {
+    print("relatedProducts =  ${relatedProducts}");
     final products = ref.watch(
       relatedProductsProvider(
         ProductFilterModel(
@@ -40,6 +41,7 @@ class RelatedProductWidget extends ConsumerWidget {
             page: 1,
             pageSize: 10,
           ),
+          productIds: relatedProducts,
         ),
       ),
     );

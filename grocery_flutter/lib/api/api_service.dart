@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:groccery_app/config.dart';
+import 'package:groccery_app/main.dart';
+import 'package:groccery_app/models/cart.dart';
 import 'package:groccery_app/models/category.dart';
 import 'package:groccery_app/models/login_response_model.dart';
 import 'package:groccery_app/models/product.dart';
@@ -9,6 +11,7 @@ import 'package:groccery_app/models/slider.model.dart';
 import 'package:groccery_app/utils/shared_service.dart';
 import 'package:http/http.dart' as http;
 
+//we use global reference our provider state of the provider is ApiService
 final apiService = Provider((ref) => ApiService());
 
 class ApiService {
@@ -45,15 +48,16 @@ class ApiService {
     if (productFilterModel.categoryId != null) {
       queryString["categoryId"] = productFilterModel.categoryId!;
     }
-    if (productFilterModel.productId != null) {
-      queryString["productId"] = productFilterModel.productId!.join(",");
+    if (productFilterModel.productIds != null) {
+      queryString["productIds"] = productFilterModel.productIds!.join(",");
     }
     var url = Uri.http(Config.apiURL, Config.productAPI, queryString);
 
     var response = await client.get(url, headers: requestHeaders);
+
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-
+      print(data);
       return productsFromJson(data["data"]);
     } else {
       return null;
@@ -125,9 +129,94 @@ class ApiService {
     var response = await client.get(url, headers: requestHeader);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      return Product.fromJson(data);
+      return Product.fromJson(data["data"]);
     } else {
       return null;
     }
+  }
+
+  Future<Cart?> getCart() async {
+    var loginDetails = await SharedService.loginDetails();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ${loginDetails!.data.token.toString()}'
+    };
+    var url = Uri.http(Config.apiURL, Config.cartAPI);
+    var response = await client.get(url, headers: requestHeaders);
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      print(response.body);
+      return Cart.fromJson(data["data"]);
+    } else if (response.statusCode == 401) {
+      navigatorKey.currentState?.pushNamedAndRemoveUntil(
+        "/login",
+        (route) => false,
+      );
+    } else {
+      return null;
+    }
+    return null;
+  }
+
+  Future<bool?> addCartItem(productId, qty) async {
+    var loginDetails = await SharedService.loginDetails();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ${loginDetails!.data.token.toString()}'
+    };
+    var url = Uri.http(Config.apiURL, Config.cartAPI);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode(
+        {
+          "product": {
+            "product": productId,
+            "qty": qty,
+          },
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      return true;
+    } else if (response.statusCode == 401) {
+      navigatorKey.currentState?.pushNamedAndRemoveUntil(
+        "/login",
+        (route) => false,
+      );
+    } else {
+      return null;
+    }
+    return null;
+  }
+
+  Future<bool?> removeCartItem(productId, qty) async {
+    var loginDetails = await SharedService.loginDetails();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ${loginDetails!.data.token.toString()}'
+    };
+    var url = Uri.http(Config.apiURL, Config.cartAPI);
+    var response = await client.delete(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode(
+        {
+          "productId": productId,
+          "qty": qty,
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      return true;
+    } else if (response.statusCode == 401) {
+      navigatorKey.currentState?.pushNamedAndRemoveUntil(
+        "/login",
+        (route) => false,
+      );
+    } else {
+      return null;
+    }
+    return null;
   }
 }

@@ -1,4 +1,5 @@
 import mongoose, { Model, Schema, Document, Types } from "mongoose";
+import { IRelatedProduct } from "./related-product.model";
 
 interface IProduct {
   productName: string;
@@ -15,7 +16,7 @@ interface IProduct {
 
 interface IProductDocument extends Document, IProduct {
   productId: string;
-  relatedProducts: Types.ObjectId;
+  relatedProducts: IRelatedProduct[];
 }
 
 const productSchema: Schema = new Schema(
@@ -47,9 +48,11 @@ const productSchema: Schema = new Schema(
   }
 );
 
-const ProductModel: Model<IProductDocument> = mongoose.model<IProductDocument>(
+const productModel: Model<IProductDocument> = mongoose.model<IProductDocument>(
   "Product",
   productSchema
 );
 
-export { ProductModel, IProduct, IProductDocument };
+export { productModel, IProduct, IProductDocument };
+
+// please based on this model defination write a controller and service to  slect all product , slect product by id by populating products.relatedProduct in the service please elect product by id and in product by id select relatedproducts id only

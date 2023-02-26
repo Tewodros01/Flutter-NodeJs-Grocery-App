@@ -34,7 +34,7 @@ export async function getAllProducts(
 ): Promise<void> {
   try {
     const product = await productService.getAllProducts({
-      productId: req.query.productId?.toString(),
+      productIds: req.query.productIds?.toString(),
       pageSize: req.query.pageSize?.toString(),
       page: req.query.page?.toString(),
       productName: req.query.productName?.toString(),

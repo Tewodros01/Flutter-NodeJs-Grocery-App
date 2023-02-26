@@ -9,6 +9,6 @@ abstract class ProductFilterModel with _$ProductFilterModel {
     required PaginationModel paginationModel,
     String? categoryId,
     String? sortBy,
-    List<String>? productId,
+    List<String>? productIds,
   }) = _ProductFilterModel;
 }

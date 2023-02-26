@@ -29,10 +29,9 @@ const cartSchema = new Schema<ICart>(
       transform: function (dec, ret) {
         ret.cartId = ret._id.toString();
         delete ret._id;
-        delete ret.__id;
+        delete ret.__v;
       },
     },
-
     timestamps: true,
   }
 );

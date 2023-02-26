@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
 import 'package:groccery_app/models/category.dart';
 import 'package:groccery_app/models/pagination.dart';
 import 'package:groccery_app/models/product_filter.dart';
@@ -67,11 +66,13 @@ class HomeCategoryWidget extends ConsumerWidget {
                   .read(productFilterProvider.notifier)
                   .setProductFilter(filterModel);
               ref.read(productsNotifierProvider.notifier).getProduct();
-
-              Get.toNamed("/products", arguments: {
-                'categoryId': data.categoryId,
-                'categoryName': data.categoryName,
-              });
+              Navigator.of(context).pushNamed(
+                "/products",
+                arguments: {
+                  "categoryId": data.categoryId,
+                  "categoryName": data.categoryName
+                },
+              );
             },
             child: Padding(
               padding: const EdgeInsets.all(8),

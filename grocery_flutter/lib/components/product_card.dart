@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:groccery_app/models/product.dart';
 import "package:groccery_app/config.dart";
 
@@ -41,8 +40,12 @@ class ProductCard extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Get.toNamed("/product-detail",
-                      arguments: {'productId': model!.productId});
+                  Navigator.of(context).pushNamed(
+                    "/product-detail",
+                    arguments: {
+                      "productId": model!.productId,
+                    },
+                  );
                 },
                 child: SizedBox(
                   height: 100,

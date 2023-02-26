@@ -1,4 +1,5 @@
-import { ProductModel } from "../models/product.model";
+import { LeanDocument } from "mongoose";
+import { productModel } from "../models/product.model";
 import {
   IRelatedProduct,
   IRelatedProductDocument,
@@ -19,25 +20,40 @@ export async function addRelatedProduct(
     const newRelatedProduct = new RelatedProductModel(relatedProduct);
     await newRelatedProduct.save();
 
-    await ProductModel.findOneAndUpdate(
+    const updatedProduct = await productModel.findByIdAndUpdate(
       relatedProduct.product,
       {
         $addToSet: {
-          relatedProducts: newRelatedProduct._id,
+          relatedProducts: newRelatedProduct,
         },
       },
       { new: true }
     );
 
+    if (!updatedProduct) {
+      throw new Error(`Product not found`);
+    }
+
     return newRelatedProduct;
   } catch (err) {
-    throw new Error(`Error can not add related Product: ${err}`);
+    throw new Error(`Error adding related product: ${err}`);
   }
 }
 
-export async function removeRelatedProduct(id: string) {
+export async function getRelatedProducts(): Promise<IRelatedProductDocument[]> {
   try {
-    const relatedProduct = RelatedProductModel.findByIdAndRemove(id);
+    const relatedProducts = await RelatedProductModel.find();
+    return relatedProducts as IRelatedProductDocument[];
+  } catch (err) {
+    throw new Error(`${err}`);
+  }
+}
+export async function removeRelatedProduct(
+  id: string
+): Promise<LeanDocument<IRelatedProductDocument> | null> {
+  try {
+    console.log(id);
+    const relatedProduct = RelatedProductModel.findByIdAndDelete(id).lean();
     return relatedProduct;
   } catch (err) {
     throw new Error(`Error can not remove related product ${err}`);

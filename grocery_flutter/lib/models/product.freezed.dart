@@ -23,14 +23,14 @@ mixin _$Product {
   String get productId => throw _privateConstructorUsedError;
   String get productName => throw _privateConstructorUsedError;
   Category get category => throw _privateConstructorUsedError;
-  String get productShortDescription => throw _privateConstructorUsedError;
-  String get productDescription => throw _privateConstructorUsedError;
+  String? get productShortDescription => throw _privateConstructorUsedError;
+  String? get productDescription => throw _privateConstructorUsedError;
   double get productPrice => throw _privateConstructorUsedError;
   double get productSalePrice => throw _privateConstructorUsedError;
   String get productImagePath => throw _privateConstructorUsedError;
-  String get productSKU => throw _privateConstructorUsedError;
-  String get productType => throw _privateConstructorUsedError;
-  String get stackStatus => throw _privateConstructorUsedError;
+  String? get productSKU => throw _privateConstructorUsedError;
+  String? get productType => throw _privateConstructorUsedError;
+  String? get stackStatus => throw _privateConstructorUsedError;
   List<String>? get relatedProducts => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,14 +47,14 @@ abstract class $ProductCopyWith<$Res> {
       {String productId,
       String productName,
       Category category,
-      String productShortDescription,
-      String productDescription,
+      String? productShortDescription,
+      String? productDescription,
       double productPrice,
       double productSalePrice,
       String productImagePath,
-      String productSKU,
-      String productType,
-      String stackStatus,
+      String? productSKU,
+      String? productType,
+      String? stackStatus,
       List<String>? relatedProducts});
 
   $CategoryCopyWith<$Res> get category;
@@ -76,14 +76,14 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? productId = null,
     Object? productName = null,
     Object? category = null,
-    Object? productShortDescription = null,
-    Object? productDescription = null,
+    Object? productShortDescription = freezed,
+    Object? productDescription = freezed,
     Object? productPrice = null,
     Object? productSalePrice = null,
     Object? productImagePath = null,
-    Object? productSKU = null,
-    Object? productType = null,
-    Object? stackStatus = null,
+    Object? productSKU = freezed,
+    Object? productType = freezed,
+    Object? stackStatus = freezed,
     Object? relatedProducts = freezed,
   }) {
     return _then(_value.copyWith(
@@ -99,14 +99,14 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as Category,
-      productShortDescription: null == productShortDescription
+      productShortDescription: freezed == productShortDescription
           ? _value.productShortDescription
           : productShortDescription // ignore: cast_nullable_to_non_nullable
-              as String,
-      productDescription: null == productDescription
+              as String?,
+      productDescription: freezed == productDescription
           ? _value.productDescription
           : productDescription // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       productPrice: null == productPrice
           ? _value.productPrice
           : productPrice // ignore: cast_nullable_to_non_nullable
@@ -119,18 +119,18 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.productImagePath
           : productImagePath // ignore: cast_nullable_to_non_nullable
               as String,
-      productSKU: null == productSKU
+      productSKU: freezed == productSKU
           ? _value.productSKU
           : productSKU // ignore: cast_nullable_to_non_nullable
-              as String,
-      productType: null == productType
+              as String?,
+      productType: freezed == productType
           ? _value.productType
           : productType // ignore: cast_nullable_to_non_nullable
-              as String,
-      stackStatus: null == stackStatus
+              as String?,
+      stackStatus: freezed == stackStatus
           ? _value.stackStatus
           : stackStatus // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       relatedProducts: freezed == relatedProducts
           ? _value.relatedProducts
           : relatedProducts // ignore: cast_nullable_to_non_nullable
@@ -158,14 +158,14 @@ abstract class _$$_ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       {String productId,
       String productName,
       Category category,
-      String productShortDescription,
-      String productDescription,
+      String? productShortDescription,
+      String? productDescription,
       double productPrice,
       double productSalePrice,
       String productImagePath,
-      String productSKU,
-      String productType,
-      String stackStatus,
+      String? productSKU,
+      String? productType,
+      String? stackStatus,
       List<String>? relatedProducts});
 
   @override
@@ -185,14 +185,14 @@ class __$$_ProductCopyWithImpl<$Res>
     Object? productId = null,
     Object? productName = null,
     Object? category = null,
-    Object? productShortDescription = null,
-    Object? productDescription = null,
+    Object? productShortDescription = freezed,
+    Object? productDescription = freezed,
     Object? productPrice = null,
     Object? productSalePrice = null,
     Object? productImagePath = null,
-    Object? productSKU = null,
-    Object? productType = null,
-    Object? stackStatus = null,
+    Object? productSKU = freezed,
+    Object? productType = freezed,
+    Object? stackStatus = freezed,
     Object? relatedProducts = freezed,
   }) {
     return _then(_$_Product(
@@ -208,14 +208,14 @@ class __$$_ProductCopyWithImpl<$Res>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as Category,
-      productShortDescription: null == productShortDescription
+      productShortDescription: freezed == productShortDescription
           ? _value.productShortDescription
           : productShortDescription // ignore: cast_nullable_to_non_nullable
-              as String,
-      productDescription: null == productDescription
+              as String?,
+      productDescription: freezed == productDescription
           ? _value.productDescription
           : productDescription // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       productPrice: null == productPrice
           ? _value.productPrice
           : productPrice // ignore: cast_nullable_to_non_nullable
@@ -228,18 +228,18 @@ class __$$_ProductCopyWithImpl<$Res>
           ? _value.productImagePath
           : productImagePath // ignore: cast_nullable_to_non_nullable
               as String,
-      productSKU: null == productSKU
+      productSKU: freezed == productSKU
           ? _value.productSKU
           : productSKU // ignore: cast_nullable_to_non_nullable
-              as String,
-      productType: null == productType
+              as String?,
+      productType: freezed == productType
           ? _value.productType
           : productType // ignore: cast_nullable_to_non_nullable
-              as String,
-      stackStatus: null == stackStatus
+              as String?,
+      stackStatus: freezed == stackStatus
           ? _value.stackStatus
           : stackStatus // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       relatedProducts: freezed == relatedProducts
           ? _value._relatedProducts
           : relatedProducts // ignore: cast_nullable_to_non_nullable
@@ -276,9 +276,9 @@ class _$_Product implements _Product {
   @override
   final Category category;
   @override
-  final String productShortDescription;
+  final String? productShortDescription;
   @override
-  final String productDescription;
+  final String? productDescription;
   @override
   final double productPrice;
   @override
@@ -286,11 +286,11 @@ class _$_Product implements _Product {
   @override
   final String productImagePath;
   @override
-  final String productSKU;
+  final String? productSKU;
   @override
-  final String productType;
+  final String? productType;
   @override
-  final String stackStatus;
+  final String? stackStatus;
   final List<String>? _relatedProducts;
   @override
   List<String>? get relatedProducts {
@@ -374,14 +374,14 @@ abstract class _Product implements Product {
       {required final String productId,
       required final String productName,
       required final Category category,
-      required final String productShortDescription,
-      required final String productDescription,
+      required final String? productShortDescription,
+      required final String? productDescription,
       required final double productPrice,
       required final double productSalePrice,
       required final String productImagePath,
-      required final String productSKU,
-      required final String productType,
-      required final String stackStatus,
+      required final String? productSKU,
+      required final String? productType,
+      required final String? stackStatus,
       final List<String>? relatedProducts}) = _$_Product;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$_Product.fromJson;
@@ -393,9 +393,9 @@ abstract class _Product implements Product {
   @override
   Category get category;
   @override
-  String get productShortDescription;
+  String? get productShortDescription;
   @override
-  String get productDescription;
+  String? get productDescription;
   @override
   double get productPrice;
   @override
@@ -403,11 +403,11 @@ abstract class _Product implements Product {
   @override
   String get productImagePath;
   @override
-  String get productSKU;
+  String? get productSKU;
   @override
-  String get productType;
+  String? get productType;
   @override
-  String get stackStatus;
+  String? get stackStatus;
   @override
   List<String>? get relatedProducts;
   @override

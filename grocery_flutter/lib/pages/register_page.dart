@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-import 'package:get/get.dart';
 import 'package:groccery_app/api/api_service.dart';
 import 'package:groccery_app/config.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
@@ -314,7 +313,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        Get.toNamed("/login");
+                        Navigator.of(context).pop();
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, "/login", (route) => false);
                       },
                   ),
                 ],

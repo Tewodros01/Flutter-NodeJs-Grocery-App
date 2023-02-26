@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:groccery_app/api/api_service.dart';
 import 'package:groccery_app/config.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
@@ -157,7 +156,9 @@ class _LogInPageState extends State<LogInPage> {
                           "User Logged-In Successfully",
                           "Ok",
                           () {
-                            Get.toNamed("/home");
+                            Navigator.of(context).pop();
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, "/home", (route) => false);
                           },
                         );
                       } else {
@@ -199,7 +200,9 @@ class _LogInPageState extends State<LogInPage> {
                     ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        Get.toNamed("/login");
+                        Navigator.of(context).pop();
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, "/registore", (route) => false);
                       },
                   )
                 ],

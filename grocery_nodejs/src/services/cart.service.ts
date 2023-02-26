@@ -8,9 +8,10 @@ interface ICartItem {
 export async function addCart(
   userId: string,
   product: ICartItem
-): Promise<ICart> {
+): Promise<ICartDocument> {
   try {
     const cart = await CartModel.findOne({ userId });
+
     if (cart) {
       // if cart already exists, find if product is already present
       const existingProductIndex = cart.products.findIndex(
@@ -23,44 +24,60 @@ export async function addCart(
         // if product does not exist in cart, add it
         cart.products.push(product);
       }
-      return await cart.save();
+      const cartItem = await cart.save();
+      return cartItem as ICartDocument;
     } else {
       // if cart does not exist, create a new one
       const newCart = new CartModel({
         userId,
         products: [product],
       });
+
       return await newCart.save();
     }
   } catch (error) {
-    throw new Error(`Could not add product to cart: ${error}`);
+    throw new Error(`${error}`);
   }
 }
 
-export async function getCart(userId?: string) {
+export async function getCart(userId?: string): Promise<ICartDocument> {
   try {
-    const cart = await CartModel.find({ userId: userId }).populate({
-      path: "products",
-      populate: {
-        path: "product",
-        model: "Product",
-        select: "productName productPrice , productSalePrice productImage",
+    const cart = await CartModel.findOne({ userId: userId })
+      .populate({
+        path: "products",
         populate: {
-          path: "category",
-          model: "Category",
-          select: "categoryName",
+          path: "product",
+          model: "Product",
+          select:
+            "productName productPrice , productSalePrice productImagePath",
+          populate: {
+            path: "category",
+            model: "Category",
+            select: "categoryName",
+          },
         },
-      },
-    });
-    return cart;
+      })
+      .lean();
+    if (!cart) {
+      throw new Error(`Cart not found`);
+    }
+    // Convert cart._id to cartId
+    const cartId = cart._id.toString();
+
+    // Add cartId property to the cart object
+    const cartWithId = { ...cart, cartId };
+
+    return cartWithId as ICartDocument;
   } catch (err) {
     throw new Error(`Could not get the cart`);
   }
 }
+
 export async function removeCart(
   userId: string,
-  productId: string
-): Promise<ICart> {
+  productId: string,
+  qty: number
+): Promise<ICartDocument> {
   const cart = await CartModel.findOne({ userId }).exec();
   try {
     if (cart) {
@@ -71,7 +88,7 @@ export async function removeCart(
       if (productIndex !== -1) {
         // If the product is in the cart, decrease the quantity by 1
         if (cart.products[productIndex].qty > 1) {
-          cart.products[productIndex].qty -= 1;
+          cart.products[productIndex].qty -= qty;
         } else {
           // If the quantity is 1, remove the product from the cart
           cart.products.splice(productIndex, 1);

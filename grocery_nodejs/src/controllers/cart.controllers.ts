@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { Types } from "mongoose";
 import { IUserDocument } from "../models/user.model";
 import * as cartService from "../services/cart.service";
 
@@ -6,34 +7,38 @@ interface IRequest extends Request {
   user?: IUserDocument;
 }
 
-export async function createCart(req: IRequest, res: Response): Promise<void> {
+export async function addCartItem(req: IRequest, res: Response) {
   try {
-    const userId = req.user?.userId; // or however you get the user ID from the request
-    const product = req.body.product; // or however you get the product ID from the request
+    const userId = req.user!.userId.toString();
+    const product = req.body.product;
 
-    const cart = await cartService.addCart(userId!, product);
-    res.status(201).json(cart);
+    const cart = await cartService.addCart(userId, product);
+    res.status(201).json({ message: "success", data: cart });
   } catch (error) {
-    res.status(500).json({ error: `${error}` });
+    console.error(error);
+    res.status(500).json({ message: `${error}` });
   }
 }
-export async function getCarts(req: Request, res: Response): Promise<void> {
+
+export async function getCarts(req: IRequest, res: Response): Promise<void> {
   try {
-    const carts = await cartService.getCart(req.query.userId?.toString());
+    const carts = await cartService.getCart(req.user?.userId);
+    console.log(`Cart in controllers ${carts}`);
     res.json({ message: "success", data: carts });
   } catch (err) {
     res.status(400).json({ message: "error", error: `${err}` });
   }
 }
 export async function removeProductFromCart(
-  req: Request,
+  req: IRequest,
   res: Response
 ): Promise<void> {
-  const { userId, productId } = req.body;
+  const userId = req.user!.userId.toString();
+  const { productId, qty } = req.body;
   try {
-    const cart = await cartService.removeCart(userId, productId);
+    const cart = await cartService.removeCart(userId, productId, qty);
     if (cart) {
-      res.status(200).json(cart);
+      res.status(200).json({ message: "success", data: cart });
     } else {
       res.status(404).json({ message: "Cart not found" });
     }

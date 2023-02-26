@@ -37,7 +37,6 @@ dependencies:
   json_annotation: ^4.8.0
   http: ^0.13.5
   flutter_riverpod: ^2.2.0
-  get: ^4.6.5
   snippet_coder_utils: ^1.0.13
   api_cache_manager: ^1.0.2
   sqflite: ^2.2.4+1

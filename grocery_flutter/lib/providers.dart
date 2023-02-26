@@ -1,7 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:groccery_app/api/api_service.dart';
+import 'package:groccery_app/application/notifier/cart_notifier.dart';
 import 'package:groccery_app/application/notifier/product_filter_notifier.dart';
 import 'package:groccery_app/application/notifier/product_notifier.dart';
+import 'package:groccery_app/application/state/cart_state.dart';
 import 'package:groccery_app/application/state/product_state.dart';
 import 'package:groccery_app/models/category.dart';
 import 'package:groccery_app/models/pagination.dart';
@@ -50,6 +52,7 @@ final productDetailsProvider = FutureProvider.family<Product?, String>(
 final sliderProvider =
     FutureProvider.family<List<SliderModel>?, PaginationModel>(
         (ref, paginationModel) {
+  //Returning apiclass
   final sliderRepo = ref.watch(apiService);
   return sliderRepo.getSliders(paginationModel.page, paginationModel.pageSize);
 });
@@ -60,4 +63,8 @@ final relatedProductsProvider =
     final apiRepository = ref.watch(apiService);
     return apiRepository.getProducts(productFilterModel);
   },
+);
+
+final cartItemsProvider = StateNotifierProvider<CartNotifier, CartState>(
+  (ref) => CartNotifier(ref.watch(apiService)),
 );

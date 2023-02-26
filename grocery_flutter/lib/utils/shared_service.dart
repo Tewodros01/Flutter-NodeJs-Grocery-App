@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:api_cache_manager/api_cache_manager.dart';
 import 'package:api_cache_manager/models/cache_db_model.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:groccery_app/models/login_response_model.dart';
 
 class SharedService {
@@ -33,6 +32,7 @@ class SharedService {
 
   static Future<void> logout(BuildContext context) async {
     await APICacheManager().deleteCache(KEY_NAME);
-    Get.toNamed("/login");
+    Navigator.of(context).pop();
+    Navigator.pushNamedAndRemoveUntil(context, "/login", (route) => false);
   }
 }
