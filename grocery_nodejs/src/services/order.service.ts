@@ -1,17 +1,14 @@
 import { UserModel, IUserDocument } from "../models/user.model";
-import { cartModel, ICardDocumet } from "../models/cards.model";
+import { cardModel, ICardDocument } from "../models/cards.model";
 import * as stripeService from "../services/stripe.service";
 import * as cartService from "../services/cart.service";
 import { AddCardParams } from "../interface/stripe_params.interface";
 import { orderModel } from "../models/order.model";
-
-interface CreateCustomerResult {
-  stripeCustomerID: string;
-  cardId?: string;
-  paymentIntentId?: string;
-  client_secret?: string;
-  orderId?: string;
-}
+import {
+  CreateCustomerResult,
+  UpdateOrderParams,
+  OrderModel,
+} from "../interface/order_service.interface";
 
 async function createOrder(
   addCardParams: AddCardParams,
@@ -38,7 +35,7 @@ async function createOrder(
       model.stripeCustomerID = result.id;
     }
 
-    const card: ICardDocumet | null = await cartModel.findOne({
+    const card: ICardDocument | null = await cardModel.findOne({
       customerId: model.stripeCustomerID,
       cardNumber: addCardParams.card_Number,
       cardExpMonth: addCardParams.card_ExpMonth,
@@ -48,7 +45,7 @@ async function createOrder(
     if (!card) {
       const result = await stripeService.addCard(addCardParams);
 
-      const cart_model: ICardDocumet | null = new cartModel({
+      const card_model: ICardDocument | null = new cardModel({
         cartId: result,
         cardName: addCardParams.card_Name,
         cardNumber: addCardParams.card_Number,
@@ -58,7 +55,7 @@ async function createOrder(
         customerId: model.stripeCustomerID,
       });
 
-      await cart_model.save();
+      await card_model.save();
       model.cardId = result;
     } else {
       model.cardId = card.cartId;
@@ -80,7 +77,7 @@ async function createOrder(
         amount: product.product.productSalePrice,
       }));
       const grandTotal = products.reduce(
-        (total, product) => total + product.amount,
+        (total, product) => total + product.amount!,
         0
       );
       const order = new orderModel({
@@ -93,6 +90,30 @@ async function createOrder(
       model.orderId = orderResult._id;
     }
     return model;
+  } catch (err) {
+    throw new Error(`${err}`);
+  }
+}
+async function updateOrder(
+  params: UpdateOrderParams
+): Promise<OrderModel | "order failed"> {
+  try {
+    const model: OrderModel = {
+      orderStatus: params.status,
+      transactionId: params.transactionId,
+    };
+    const updatedOrder = await orderModel.findByIdAndUpdate(
+      params.orderId,
+      model,
+      { useFindAndModify: false, new: true }
+    );
+    if (!updatedOrder) {
+      return "order failed";
+    }
+    if (params.status === "success") {
+      // clear the cart
+    }
+    return updatedOrder;
   } catch (err) {
     throw new Error(`${err}`);
   }

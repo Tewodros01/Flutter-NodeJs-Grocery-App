@@ -1,9 +1,5 @@
 import { Model, Schema, Document, Types, model } from "mongoose";
-
-interface ICartItem {
-  product: Types.ObjectId;
-  qty: number;
-}
+import { ICartItem } from "../interface/cart_params.interface";
 
 interface ICart {
   userId: string;

@@ -18,6 +18,7 @@ const userSchema = new Schema<IUserDocument>(
     email: { type: String, required: true },
     password: { type: String, required: true },
     stripeCustomerID: { type: String },
+    token: { type: String },
   },
   {
     toJSON: {

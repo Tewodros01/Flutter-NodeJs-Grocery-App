@@ -8,7 +8,7 @@ export async function login(
   password: string
 ): Promise<string | null | IUserDocument> {
   try {
-    const logInUser = await UserModel.findOne({ email });
+    const logInUser: IUserDocument | null = await UserModel.findOne({ email });
     if (!logInUser) {
       throw new Error("Invalid email or password");
     }
@@ -21,6 +21,7 @@ export async function login(
     }
     const token = auth.generateAccessToken(logInUser.toJSON());
     logInUser.token = token;
+    logInUser.save();
     return logInUser;
   } catch (err) {
     throw new Error(` ${err}`);
@@ -44,9 +45,10 @@ export async function register(newUser: IUser): Promise<IUserDocument> {
     );
     newUser.password = hash;
 
-    const registorUser = new UserModel(newUser);
+    const registorUser: IUserDocument = new UserModel(newUser);
     const token = auth.generateAccessToken(registorUser.toJSON());
     registorUser.token = token; // Add token value to user object
+    console.log("Token " + registorUser.token);
     await registorUser.save(); // Save user object to the database
 
     return registorUser;

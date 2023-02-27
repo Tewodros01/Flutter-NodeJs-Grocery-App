@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
+import { IProductDocument } from "../models/product.model";
 
 export interface ICartItem {
-  product: Types.ObjectId;
+  product: IProductDocument;
   qty: number;
 }
