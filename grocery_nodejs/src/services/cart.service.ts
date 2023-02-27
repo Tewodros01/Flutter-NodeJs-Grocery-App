@@ -1,10 +1,7 @@
 import { Types } from "mongoose";
 import { CartModel, ICart, ICartDocument } from "../models/cart.models";
+import { ICartItem } from "../interface/cart_params.interface";
 
-interface ICartItem {
-  product: Types.ObjectId;
-  qty: number;
-}
 export async function addCart(
   userId: string,
   product: ICartItem

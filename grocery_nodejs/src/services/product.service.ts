@@ -6,16 +6,7 @@ import {
 } from "../models/product.model";
 import MONGO_DB_CONFIG from "../config/app.config";
 import { IRelatedProduct } from "../models/related-product.model";
-import { ICategory } from "../models/category.model";
-
-interface GetAllProductsParams {
-  productIds?: string;
-  pageSize?: string;
-  page?: string;
-  productName?: string;
-  categoryId?: string;
-  sortBy?: string;
-}
+import { GetAllProductsParams } from "../interface/product_params.inteface";
 
 export async function getAllProducts(
   params: GetAllProductsParams
