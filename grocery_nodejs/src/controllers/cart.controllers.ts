@@ -1,11 +1,6 @@
-import { Request, Response } from "express";
-import { Types } from "mongoose";
-import { IUserDocument } from "../models/user.model";
+import { Response } from "express";
+import { IRequest } from "../interface/user.interface";
 import * as cartService from "../services/cart.service";
-
-interface IRequest extends Request {
-  user?: IUserDocument;
-}
 
 export async function addCartItem(req: IRequest, res: Response) {
   try {

@@ -3,7 +3,7 @@ import {
   CustomerParams,
   AddCardParams,
   PaymentIntentParams,
-} from "../interface/stripe_params.interface";
+} from "../interface/stripe.interface";
 
 const stripe_key = process.env.STRIPE_KEY!;
 const stripeClient = new Stripe(stripe_key, {

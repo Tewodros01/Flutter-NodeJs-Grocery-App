@@ -6,7 +6,7 @@ import {
 } from "../models/product.model";
 import MONGO_DB_CONFIG from "../config/app.config";
 import { IRelatedProduct } from "../models/related-product.model";
-import { GetAllProductsParams } from "../interface/product_params.inteface";
+import { GetAllProductsParams } from "../interface/product.inteface";
 
 export async function getAllProducts(
   params: GetAllProductsParams

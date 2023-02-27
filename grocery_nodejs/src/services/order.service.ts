@@ -2,15 +2,15 @@ import { UserModel, IUserDocument } from "../models/user.model";
 import { cardModel, ICardDocument } from "../models/cards.model";
 import * as stripeService from "../services/stripe.service";
 import * as cartService from "../services/cart.service";
-import { AddCardParams } from "../interface/stripe_params.interface";
-import { orderModel } from "../models/order.model";
+import { AddCardParams } from "../interface/stripe.interface";
+import { IOrderDocument, orderModel } from "../models/order.model";
 import {
   CreateCustomerResult,
   UpdateOrderParams,
   OrderModel,
-} from "../interface/order_service.interface";
+} from "../interface/order.interface";
 
-async function createOrder(
+export async function createOrder(
   addCardParams: AddCardParams,
   userId: string,
   amount: number
@@ -94,7 +94,7 @@ async function createOrder(
     throw new Error(`${err}`);
   }
 }
-async function updateOrder(
+export async function updateOrder(
   params: UpdateOrderParams
 ): Promise<OrderModel | "order failed"> {
   try {
@@ -114,6 +114,26 @@ async function updateOrder(
       // clear the cart
     }
     return updatedOrder;
+  } catch (err) {
+    throw new Error(`${err}`);
+  }
+}
+
+export async function getOrders(userId: string): Promise<IOrderDocument> {
+  try {
+    const orders = await orderModel.findOne({ userId }).populate({
+      path: "products",
+      populate: {
+        path: "product",
+        model: "Product",
+        populate: {
+          path: "category",
+          model: "Category",
+          select: "categoryName",
+        },
+      },
+    });
+    return orders as IOrderDocument;
   } catch (err) {
     throw new Error(`${err}`);
   }

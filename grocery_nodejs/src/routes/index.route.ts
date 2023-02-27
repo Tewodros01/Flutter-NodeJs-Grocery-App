@@ -1,6 +1,7 @@
 import { Router } from "express";
 import cart_router from "./api/cart.routes";
 import category_router from "./api/category.route.api";
+import order_router from "./api/order_route";
 import product_router from "./api/product.route.api";
 import related_product from "./api/related-product.route";
 import slider_route from "./api/slider_route";
@@ -14,5 +15,6 @@ routes.use("/user", user_router);
 routes.use("/slider", slider_route);
 routes.use("/related-product", related_product);
 routes.use("/cart", cart_router);
+routes.use("/order", order_router);
 
 export default routes;
