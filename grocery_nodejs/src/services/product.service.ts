@@ -4,7 +4,7 @@ import {
   IProductDocument,
   IProduct,
 } from "../models/product.model";
-import MONGO_DB_CONFIG from "../config/app.config";
+import { MONGO_DB_CONFIG } from "../config/app.config";
 import { IRelatedProduct } from "../models/related-product.model";
 import { GetAllProductsParams } from "../interface/product.inteface";
 
@@ -61,7 +61,7 @@ export async function getAllProducts(
 
     return modifideProducts;
   } catch (err) {
-    throw new Error(`Could not get products: ${err}`);
+    throw new Error(` ${err}`);
   }
 }
 
@@ -73,7 +73,7 @@ export async function createProduct(
     await newProduct.save();
     return newProduct;
   } catch (err) {
-    throw new Error(`Could not create ${err}`);
+    throw new Error(`${err}`);
   }
 }
 
@@ -116,7 +116,7 @@ export async function updateProduct(
     );
     return updatedProduct as IProductDocument;
   } catch (err) {
-    throw new Error(`Could not update ${err}`);
+    throw new Error(`${err}`);
   }
 }
 
@@ -129,6 +129,6 @@ export async function deleteProduct(
       .lean();
     return product;
   } catch (err) {
-    throw new Error(`Could not delete ${err}`);
+    throw new Error(`${err}`);
   }
 }

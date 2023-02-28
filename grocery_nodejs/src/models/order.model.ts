@@ -28,9 +28,9 @@ const orderSchema = new Schema(
         qty: { type: Number, required: true },
       },
     ],
-    grandT0tal: { type: Number, required: true },
+    grandTotal: { type: Number, required: true },
     orderStatus: { type: String, required: true },
-    transactionId: { type: String, required: true },
+    transactionId: { type: String },
   },
   {
     timestamps: true,

@@ -1,9 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:groccery_app/api/api_service.dart';
 import 'package:groccery_app/application/notifier/cart_notifier.dart';
+import 'package:groccery_app/application/notifier/order_payment_notifier.dart';
 import 'package:groccery_app/application/notifier/product_filter_notifier.dart';
 import 'package:groccery_app/application/notifier/product_notifier.dart';
 import 'package:groccery_app/application/state/cart_state.dart';
+import 'package:groccery_app/application/state/order_payment_state.dart';
 import 'package:groccery_app/application/state/product_state.dart';
 import 'package:groccery_app/models/category.dart';
 import 'package:groccery_app/models/pagination.dart';
@@ -67,4 +69,9 @@ final relatedProductsProvider =
 
 final cartItemsProvider = StateNotifierProvider<CartNotifier, CartState>(
   (ref) => CartNotifier(ref.watch(apiService)),
+);
+
+final orderPaymentProvider =
+    StateNotifierProvider<OrderPaymentNotifier, OrderPaymentState>(
+  (ref) => OrderPaymentNotifier(ref.watch(apiService)),
 );

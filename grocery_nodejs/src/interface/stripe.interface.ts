@@ -5,8 +5,8 @@ export interface CustomerParams {
 export interface AddCardParams {
   card_Name: string;
   card_Number: string;
-  card_ExpMonth: number;
-  card_ExpYear: number;
+  card_ExpMonth: string;
+  card_ExpYear: string;
   card_CVC: string;
   customer_id: string;
 }

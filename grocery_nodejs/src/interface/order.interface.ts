@@ -1,5 +1,5 @@
 export interface CreateCustomerResult {
-  stripeCustomerID: string;
+  stripeCustomerId: string;
   cardId?: string;
   paymentIntentId?: string;
   client_secret?: string;

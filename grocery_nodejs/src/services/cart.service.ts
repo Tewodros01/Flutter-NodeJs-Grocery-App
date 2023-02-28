@@ -1,5 +1,4 @@
-import { Types } from "mongoose";
-import { CartModel, ICart, ICartDocument } from "../models/cart.models";
+import { CartModel, ICartDocument } from "../models/cart.models";
 import { ICartItem } from "../interface/cart.interface";
 
 export async function addCart(

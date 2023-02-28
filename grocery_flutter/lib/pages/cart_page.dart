@@ -80,7 +80,7 @@ class _CheckoutBottomNavbar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final cartProvieder = ref.watch(cartItemsProvider);
     if (cartProvieder.cartModel != null) {
-      return cartProvieder.cartModel!.products.isEmpty
+      return cartProvieder.cartModel!.products.isNotEmpty
           ? Container(
               child: Container(
                 height: 50,
@@ -100,12 +100,17 @@ class _CheckoutBottomNavbar extends ConsumerWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const Text(
-                        "Proceed to Checkout0",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed("/payment");
+                        },
+                        child: const Text(
+                          "Proceed to Checkout0",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
                         ),
                       )
                     ],

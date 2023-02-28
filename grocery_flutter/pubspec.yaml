@@ -41,6 +41,7 @@ dependencies:
   api_cache_manager: ^1.0.2
   sqflite: ^2.2.4+1
   carousel_slider: ^4.2.1
+  flutter_stripe: ^8.0.0+1
 
 dev_dependencies:
   flutter_test:

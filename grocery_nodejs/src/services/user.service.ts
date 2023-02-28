@@ -1,6 +1,6 @@
 import { IUser, IUserDocument, UserModel } from "../models/user.model";
 import bcrypt from "bcrypt";
-import MONGO_DB_CONFIG from "../config/app.config";
+import { MONGO_DB_CONFIG } from "../config/app.config";
 import * as auth from "../middleware/auth";
 
 export async function login(

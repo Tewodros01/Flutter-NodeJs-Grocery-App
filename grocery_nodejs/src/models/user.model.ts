@@ -9,7 +9,7 @@ interface IUser {
 interface IUserDocument extends Document, IUser {
   userId: string;
   token: string;
-  stripeCustomerID: string;
+  stripeCustomerId: string;
 }
 
 const userSchema = new Schema<IUserDocument>(
@@ -17,7 +17,7 @@ const userSchema = new Schema<IUserDocument>(
     fullName: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    stripeCustomerID: { type: String },
+    stripeCustomerId: { type: String },
     token: { type: String },
   },
   {

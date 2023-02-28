@@ -4,7 +4,7 @@ import { AddCardParams } from "../interface/stripe.interface";
 import { IRequest } from "../interface/user.interface";
 import * as orderService from "../services/order.service";
 
-export async function getOrder(req: IRequest, res: Response): Promise<void> {
+export async function getOrders(req: IRequest, res: Response): Promise<void> {
   try {
     const userId = req.user?.userId!;
     const orders = await orderService.getOrders(userId);
@@ -24,10 +24,11 @@ export async function createOrder(req: IRequest, res: Response): Promise<void> {
       card_ExpMonth: req.body.card_ExpMonth,
       card_ExpYear: req.body.card_ExpYear,
       card_CVC: req.body.card_CVC,
-      customer_id: req.body.customer_id,
+      customer_id: req.user?.userId!,
     };
+    console.log("Card data " + model.card_ExpYear);
     const order = await orderService.createOrder(model, userId, amount);
-    res.status(201).json({ message: "success", data: order });
+    res.status(200).json({ message: "success", data: order });
   } catch (err) {
     res.status(500).json({ message: "error", error: `${err}` });
   }
@@ -41,7 +42,7 @@ export async function updateOrder(req: IRequest, res: Response): Promise<void> {
       transactionId: req.body.transactionId,
     };
     const updateOrder = await orderService.updateOrder(model);
-    res.status(201).json({ message: "success", data: updateOrder });
+    res.status(200).json({ message: "success", data: updateOrder });
   } catch (err) {
     res.status(500).json({ message: "error", error: `${err}` });
   }

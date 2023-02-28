@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt, { Secret } from "jsonwebtoken";
 import { IUser } from "../models/user.model";
-import MONGO_DB_CONFIG from "../config/app.config";
+import { MONGO_DB_CONFIG } from "../config/app.config";
 
 const secret = MONGO_DB_CONFIG.TOKEN_KEY;
 

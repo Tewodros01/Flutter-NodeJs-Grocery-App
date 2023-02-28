@@ -3,7 +3,7 @@ import {
   ICategoryDocument,
   ICategory,
 } from "../models/category.model";
-import MONGO_DB_CONFIG from "../config/app.config";
+import { MONGO_DB_CONFIG } from "../config/app.config";
 
 export async function getCategoryById(id: string): Promise<ICategoryDocument> {
   const category = await CategoryModel.findById(id).lean();

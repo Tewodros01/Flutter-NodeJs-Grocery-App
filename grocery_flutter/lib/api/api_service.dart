@@ -5,6 +5,7 @@ import 'package:groccery_app/main.dart';
 import 'package:groccery_app/models/cart.dart';
 import 'package:groccery_app/models/category.dart';
 import 'package:groccery_app/models/login_response_model.dart';
+import 'package:groccery_app/models/order_payment.dart';
 import 'package:groccery_app/models/product.dart';
 import 'package:groccery_app/models/product_filter.dart';
 import 'package:groccery_app/models/slider.model.dart';
@@ -216,6 +217,68 @@ class ApiService {
       );
     } else {
       return null;
+    }
+    return null;
+  }
+
+  Future<Map<String, dynamic>> processPayment(cardHolderName, cardNumber,
+      cardExpMonth, cardExpYear, cardCVC, amount) async {
+    var lodingDetail = await SharedService.loginDetails();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ${lodingDetail?.data.token.toString()}'
+    };
+    var url = Uri.http(Config.apiURL, Config.orderAPI);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({
+        "card_Name": cardHolderName,
+        "card_Number": cardNumber,
+        "card_ExpMonth": cardExpMonth,
+        "card_ExpYear": cardExpYear,
+        "amount": amount,
+        "card_CVC": cardCVC,
+      }),
+    );
+    Map<String, dynamic> resModel = {};
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      resModel["message"] = "success";
+      resModel["data"] = OrderPayment.fromJson(data["data"]);
+    } else if (response.statusCode == 401) {
+      navigatorKey.currentState
+          ?.pushNamedAndRemoveUntil("/login", (route) => false);
+    } else {
+      var data = jsonDecode(response.body);
+      resModel["message"] = data["error"];
+    }
+    return resModel;
+  }
+
+  Future<bool?> updtaOrder(orderId, transactionId) async {
+    var lodingDetail = await SharedService.loginDetails();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ${lodingDetail?.data.token.toString()}'
+    };
+    var url = Uri.http(Config.apiURL, Config.orderAPI);
+    var response = await client.put(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({
+        "status": "success",
+        "transactionId": transactionId,
+        "orderId": orderId,
+      }),
+    );
+    if (response.statusCode == 200) {
+      return true;
+    } else if (response.statusCode == 401) {
+      navigatorKey.currentState
+          ?.pushNamedAndRemoveUntil("/login", (route) => false);
+    } else {
+      return false;
     }
     return null;
   }

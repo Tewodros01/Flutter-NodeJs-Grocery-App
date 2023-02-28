@@ -1,4 +1,4 @@
-import MONGO_DB_CONFIG from "../config/app.config";
+import { MONGO_DB_CONFIG } from "../config/app.config";
 import { ISlider, ISliderDocument, SliderModel } from "../models/slider.model";
 import fs from "fs-extra";
 import path from "path";

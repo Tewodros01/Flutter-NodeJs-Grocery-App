@@ -20,31 +20,31 @@ export async function createOrder(
     if (!user) {
       throw new Error("User not found");
     }
-
     let model: CreateCustomerResult = {
-      stripeCustomerID: user.stripeCustomerID || "",
+      stripeCustomerId: user.stripeCustomerId || "",
     };
-
-    if (!model.stripeCustomerID) {
+    if (!model.stripeCustomerId) {
       const result = await stripeService.createCustomer({
         name: user.fullName,
         email: user.email,
       });
-      user.stripeCustomerID = result.id;
+      user.stripeCustomerId = result.id;
       await user.save();
-      model.stripeCustomerID = result.id;
+      model.stripeCustomerId = result.id;
     }
 
     const card: ICardDocument | null = await cardModel.findOne({
-      customerId: model.stripeCustomerID,
+      customerId: model.stripeCustomerId,
       cardNumber: addCardParams.card_Number,
       cardExpMonth: addCardParams.card_ExpMonth,
       cardExpYear: addCardParams.card_ExpYear,
     });
 
     if (!card) {
-      const result = await stripeService.addCard(addCardParams);
-
+      const result = await stripeService.addCard(
+        addCardParams,
+        model.stripeCustomerId
+      );
       const card_model: ICardDocument | null = new cardModel({
         cartId: result,
         cardName: addCardParams.card_Name,
@@ -52,7 +52,7 @@ export async function createOrder(
         cardExpMonth: addCardParams.card_ExpMonth,
         cardExpYear: addCardParams.card_ExpYear,
         cardCVC: addCardParams.card_CVC,
-        customerId: model.stripeCustomerID,
+        customerId: model.stripeCustomerId,
       });
 
       await card_model.save();
@@ -64,7 +64,7 @@ export async function createOrder(
       receipt_email: user.email,
       amount: amount,
       card_id: model.cardId!,
-      customer_id: model.stripeCustomerID,
+      customer_id: model.stripeCustomerId,
     });
     model.paymentIntentId = paymentIntentResult.id;
     model.client_secret = paymentIntentResult.client_secret!;

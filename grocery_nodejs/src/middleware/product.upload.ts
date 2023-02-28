@@ -1,11 +1,11 @@
-import { Request, Response, NextFunction } from "express";
+import { Request } from "express";
 import multer from "multer";
 import { v4 } from "uuid";
 import path from "path";
 
 const storage = multer.diskStorage({
   destination: "./uploads/products",
-  filename: (req, file, cb) => {
+  filename: (_, file, cb) => {
     cb(null, v4() + path.extname(file.originalname));
   },
 });
